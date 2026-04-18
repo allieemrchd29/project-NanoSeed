@@ -21,7 +21,7 @@
     .brand-logo { font-size: 2rem; }
   </style>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/js/tabler.min.js"></script>
 <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
 
   <div class="page page-center">
@@ -112,7 +112,7 @@
     </div>
   </div>
 
-  <script src="{{ asset('assets/dist/js/tabler.min.js') }}" defer></script>
+  <script src="{{ asset('assets/js/tabler.min.js') }}" defer></script>
   
   <script>
     function togglePassword() {
