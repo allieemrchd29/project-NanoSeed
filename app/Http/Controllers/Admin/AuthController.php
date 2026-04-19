@@ -36,7 +36,7 @@ class AuthController extends Controller
         Auth::guard('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('logout','Logout Berhasil!');
     }
 
     //dashboard admin
@@ -44,5 +44,25 @@ class AuthController extends Controller
     {
         $admin = Auth::guard('admin')->user();
         return view('admin.dashboard', compact('admin'));
+    }
+    
+    public function kampanye() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.kampanye', compact('admin'));
+    }
+
+    public function donasi() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.donasi', compact('admin'));
+    }
+
+      public function dampak() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.dampak', compact('admin'));
+    }
+
+      public function dokumentasi() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.dokumentasi', compact('admin'));
     }
 }
