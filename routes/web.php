@@ -22,3 +22,20 @@ Route::prefix('admin')->name('admin.')->group(function (){
 
 
 });
+
+// NAVBAR ADMIN
+
+// Kampanye
+Route::get('/admin/kampanye', function () {
+    return view('admin.kampanye'); 
+})->name('views.admin.kampanye');
+
+// Donasi
+Route::get('/admin/donasi', function () {
+    return view('admin.donasi');
+})->name('views.admin.donasi');
+
+// Dokumentasi
+Route::get('/admin/dokumentasi', function () {
+    return view('admin.dokumentasi');
+})->name('views.admin.dokumentasi');
