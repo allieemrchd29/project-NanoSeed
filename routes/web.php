@@ -35,6 +35,11 @@ Route::get('/admin/donasi', function () {
     return view('admin.donasi');
 })->name('views.admin.donasi');
 
+// Dampak
+Route::get('/admin/dampak', function () {
+    return view('admin.dampak');
+})->name('views.admin.dampak');
+
 // Dokumentasi
 Route::get('/admin/dokumentasi', function () {
     return view('admin.dokumentasi');

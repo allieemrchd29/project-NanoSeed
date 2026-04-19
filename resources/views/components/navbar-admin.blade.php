@@ -1,3 +1,21 @@
+<style>
+  :root {
+    /* Mengganti warna dasar 'Primary' Tabler jadi Hijau di seluruh halaman */
+    --tblr-primary: #198f2c; 
+    
+    /* Atau khusus untuk border navbar saja */
+    --tblr-navbar-active-border-color: ##198f2c;
+  }
+
+  /* Tetap pakai ini untuk warna teks dan ikon */
+  .nav-item.active .nav-link, 
+  .nav-item.active .nav-link-icon,
+  .nav-item.active .nav-link-title {
+    color: #198f2c !important;
+    font-weight: 600;
+  }
+</style>
+
 {{-- BARIS ATAS: Brand + Notif + Avatar --}}
 <header class="navbar navbar-expand-md d-print-none sticky-top">
   <div class="container-xl">
@@ -56,6 +74,7 @@
       <div class="container-xl">
         <ul class="navbar-nav">
 
+
           <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
               <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -80,6 +99,15 @@
                 <i class="ti ti-heart icon"></i>
               </span>
               <span class="nav-link-title">Donasi</span>
+            </a>
+          </li>
+
+           <li class="nav-item {{ request()->routeIs('views.admin.dampak') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('views.admin.dampak') }}">
+              <span class="nav-link-icon d-md-none d-lg-inline-block">
+                <i class="ti ti-seeding icon"></i>
+              </span>
+              <span class="nav-link-title">Dampak</span>
             </a>
           </li>
 

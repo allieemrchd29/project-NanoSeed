@@ -55,4 +55,14 @@ class AuthController extends Controller
     $admin = Auth::guard('admin')->user();
     return view('admin.donasi', compact('admin'));
     }
+
+      public function dampak() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.dampak', compact('admin'));
+    }
+
+      public function dokumentasi() {
+    $admin = Auth::guard('admin')->user();
+    return view('admin.dokumentasi', compact('admin'));
+    }
 }
