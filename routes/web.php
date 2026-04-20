@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\DonasiController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -31,9 +32,12 @@ Route::get('/admin/kampanye', function () {
 })->name('views.admin.kampanye');
 
 // Donasi
-Route::get('/admin/donasi', function () {
-    return view('admin.donasi');
-})->name('views.admin.donasi');
+// tabel rekapitulasi (Data dari Database)
+Route::get('/admin/donasi', [DonasiController::class, 'index'])->name('views.admin.donasi');
+// Menghapus data donatur
+Route::delete('/admin/donasi/{id}', [DonasiController::class, 'destroy'])->name('admin.donasi.destroy');
+// Menyimpan data (Akan digunakan oleh form donatur nanti)
+Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.donasi.store');
 
 // Dampak
 Route::get('/admin/dampak', function () {
