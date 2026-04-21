@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ProfileController;
+use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\KampanyeController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -21,24 +23,25 @@ Route::prefix('admin')->name('admin.')->group(function (){
         Route::get('/search', [SearchController::class, 'index'])->name('search');
         Route::post('/logout', [AuthController::class,'logout' ])->name('logout');
 
-    //update profil
-    Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
+        //update profil
+        Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
+      
+        Route::resource('kampanye', KampanyeController::class)->except(['show']);
     });
 
 });
 
 // NAVBAR ADMIN
 
-// Kampanye
-Route::get('/admin/kampanye', function () {
-    return view('admin.kampanye'); 
-})->name('views.admin.kampanye');
 
 // Donasi
-Route::get('/admin/donasi', function () {
-    return view('admin.donasi');
-})->name('views.admin.donasi');
+// tabel rekapitulasi (Data dari Database)
+Route::get('/admin/donasi', [DonasiController::class, 'index'])->name('views.admin.donasi');
+// Menghapus data donatur
+Route::delete('/admin/donasi/{id}', [DonasiController::class, 'destroy'])->name('admin.donasi.destroy');
+// Menyimpan data (Akan digunakan oleh form donatur nanti)
+Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.donasi.store');
 
 // Dampak
 Route::get('/admin/dampak', function () {

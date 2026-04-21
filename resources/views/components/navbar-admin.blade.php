@@ -1,19 +1,15 @@
 <style>
-  :root {
-    /* Mengganti warna dasar 'Primary' Tabler jadi Hijau di seluruh halaman */
-    --tblr-primary: #198f2c; 
-    
-    /* Atau khusus untuk border navbar saja */
-    --tblr-navbar-active-border-color: ##198f2c;
-  }
+    :root {
+        --tblr-primary: #198f2c;
+        --tblr-navbar-active-border-color: #198f2c;
+    }
 
-  /* Tetap pakai ini untuk warna teks dan ikon */
-  .nav-item.active .nav-link, 
-  .nav-item.active .nav-link-icon,
-  .nav-item.active .nav-link-title {
-    color: #198f2c !important;
-    font-weight: 600;
-  }
+    .nav-item.active .nav-link,
+    .nav-item.active .nav-link-icon,
+    .nav-item.active .nav-link-title {
+        color: #198f2c !important;
+        font-weight: 600;
+    }
 </style>
 
 {{-- BARIS ATAS: Brand + Notif + Avatar --}}
@@ -52,7 +48,7 @@
       {{-- Profile Dropdown --}}
       <div class="nav-item dropdown">
         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown">
-          
+
           @if(auth('admin')->user()->profile)
             <span class="avatar avatar-sm" style="background-image: url('{{ asset('storage/' . auth('admin')->user()->profile) }}')"></span>
           @else
@@ -66,20 +62,20 @@
             <div class="mt-1 small text-secondary">Administrator</div>
           </div>
         </a>
-        
+
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
           <div class="dropdown-header">
             <div class="fw-bold">{{ auth('admin')->user()->name }}</div>
             <div class="text-muted small">{{ auth('admin')->user()->email }}</div>
           </div>
-          
+
           <div class="dropdown-divider"></div>
           <a href="{{ route('admin.profile.edit') }}" class="dropdown-item">
             <i class="ti ti-settings me-2"></i> Pengaturan Profil
           </a>
 
           <div class="dropdown-divider"></div>
-          
+
           <form action="{{ route('admin.logout') }}" method="POST">
             @csrf
             <button type="submit" class="dropdown-item text-danger">
@@ -100,7 +96,6 @@
       <div class="container-xl">
         <ul class="navbar-nav">
 
-
           <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.dashboard') }}">
               <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -110,8 +105,8 @@
             </a>
           </li>
 
-          <li class="nav-item {{ request()->routeIs('views.admin.kampanye') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('views.admin.kampanye') }}">
+          <li class="nav-item {{ request()->routeIs('admin.kampanye.index') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.kampanye.index') }}">
               <span class="nav-link-icon d-md-none d-lg-inline-block">
                 <i class="ti ti-sparkles icon"></i>
               </span>
@@ -128,7 +123,7 @@
             </a>
           </li>
 
-           <li class="nav-item {{ request()->routeIs('views.admin.dampak') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->routeIs('views.admin.dampak') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('views.admin.dampak') }}">
               <span class="nav-link-icon d-md-none d-lg-inline-block">
                 <i class="ti ti-seeding icon"></i>
@@ -137,7 +132,7 @@
             </a>
           </li>
 
-         <li class="nav-item {{ request()->routeIs('views.admin.dokumentasi') ? 'active' : '' }}">
+          <li class="nav-item {{ request()->routeIs('views.admin.dokumentasi') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('views.admin.dokumentasi') }}">
               <span class="nav-link-icon d-md-none d-lg-inline-block">
                 <i class="ti ti-file-text icon"></i>
