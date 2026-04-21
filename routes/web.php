@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\KampanyeController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -19,17 +20,14 @@ Route::prefix('admin')->name('admin.')->group(function (){
     Route::middleware('admin.auth')->group(function(){
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::post('/logout', [AuthController::class,'logout' ])->name('logout');
-    });
 
+        Route::resource('kampanye', KampanyeController::class)->except(['show']);
+    });
 
 });
 
 // NAVBAR ADMIN
 
-// Kampanye
-Route::get('/admin/kampanye', function () {
-    return view('admin.kampanye'); 
-})->name('views.admin.kampanye');
 
 // Donasi
 // tabel rekapitulasi (Data dari Database)
