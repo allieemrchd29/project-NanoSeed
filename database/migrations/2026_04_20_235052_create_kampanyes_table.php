@@ -11,16 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-    Schema::create('kampanye', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama_kampanye');
-        $table->text('deskripsi')->nullable();
-        $table->enum('status_kampanye', ['aktif', 'nonaktif', 'selesai'])->default('aktif');
-        $table->date('tanggal_mulai');
-        $table->date('tanggal_selesai');
-        $table->string('gambar_kampanye')->nullable();
-        $table->timestamps();
-    });
+        Schema::create('kampanye', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_kampanye');
+            $table->text('deskripsi')->nullable();
+            $table->enum('status_kampanye', ['aktif', 'nonaktif', 'selesai'])->default('aktif');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->string('gambar_kampanye')->nullable();
+            $table->timestamps();
+        });
     }
 
     public function down(): void

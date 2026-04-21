@@ -29,6 +29,11 @@
             font-feature-settings: "cv03", "cv04", "cv11";
         }
     </style>
+
+    {{-- Filepond CSS --}}
+    <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+    <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+        rel="stylesheet">
 </head>
 
 <body class="antialiased">
@@ -39,9 +44,13 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js" defer></script>
-
     <script src="{{ asset('assets/dist/js/tabler.min.js') }}" defer></script>
 
+    {{-- Filepond JS --}}
+    <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js" defer></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js" defer>
+    </script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js" defer></script>
 </body>
 
 </html>
