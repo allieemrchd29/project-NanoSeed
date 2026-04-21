@@ -22,11 +22,7 @@ Route::prefix('admin')->name('admin.')->group(function (){
 
         Route::resource('kampanye', KampanyeController::class)->except(['show']);
     });
-<<<<<<< HEAD
 
-
-});
-=======
 });
 
 // NAVBAR ADMIN
@@ -46,4 +42,3 @@ Route::get('/admin/dampak', function () {
 Route::get('/admin/dokumentasi', function () {
     return view('admin.dokumentasi');
 })->name('views.admin.dokumentasi');
->>>>>>> 3f0c36c (menambahkan fitur crud kampanye)
