@@ -30,6 +30,18 @@
 
     <div class="navbar-nav flex-row order-md-last">
 
+      {{-- Kolom Pencarian --}}
+      <div class="nav-item d-none d-md-flex me-3">
+        <form action="{{ route('admin.search') }}" method="GET" class="d-flex">
+          <div class="input-icon">
+            <span class="input-icon-addon">
+              <i class="ti ti-search"></i>
+            </span>
+            <input type="text" name="q" class="form-control" placeholder="Cari..." aria-label="Search">
+          </div>
+        </form>
+      </div>
+
       {{-- Notifikasi --}}
       <div class="nav-item me-3">
         <a href="#" class="nav-link px-0 text-muted">
@@ -40,20 +52,34 @@
       {{-- Profile Dropdown --}}
       <div class="nav-item dropdown">
         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown">
-          <span class="avatar avatar-sm bg-success text-white fw-bold">
-            {{ strtoupper(substr('Admin', 0, 1)) }}
-          </span>
+          
+          @if(auth('admin')->user()->profile)
+            <span class="avatar avatar-sm" style="background-image: url('{{ asset('storage/' . auth('admin')->user()->profile) }}')"></span>
+          @else
+            <span class="avatar avatar-sm bg-success text-white fw-bold">
+              {{ strtoupper(substr(auth('admin')->user()->name, 0, 1)) }}
+            </span>
+          @endif
+
           <div class="d-none d-xl-block ps-2">
-            <div class="fw-bold">{{ 'Admin' }}</div>
+            <div class="fw-bold">{{ auth('admin')->user()->name }}</div>
             <div class="mt-1 small text-secondary">Administrator</div>
           </div>
         </a>
+        
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
           <div class="dropdown-header">
-            <div class="fw-bold">{{ 'Admin' }}</div>
-            {{-- <div class="text-muted small">{{ $admin->email }}</div> --}}
+            <div class="fw-bold">{{ auth('admin')->user()->name }}</div>
+            <div class="text-muted small">{{ auth('admin')->user()->email }}</div>
           </div>
+          
           <div class="dropdown-divider"></div>
+          <a href="{{ route('admin.profile.edit') }}" class="dropdown-item">
+            <i class="ti ti-settings me-2"></i> Pengaturan Profil
+          </a>
+
+          <div class="dropdown-divider"></div>
+          
           <form action="{{ route('admin.logout') }}" method="POST">
             @csrf
             <button type="submit" class="dropdown-item text-danger">
