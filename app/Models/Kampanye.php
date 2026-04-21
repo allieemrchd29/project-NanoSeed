@@ -16,4 +16,9 @@ class Kampanye extends Model
         'tanggal_selesai',
         'gambar_kampanye',
     ];
+
+    public function dokumentasi()
+    {
+        return $this->hasMany(Dokumentasi::class, 'id_kampanye', 'id');
+    }
 }

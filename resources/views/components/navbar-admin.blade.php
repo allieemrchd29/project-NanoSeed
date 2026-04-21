@@ -112,8 +112,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ request()->routeIs('views.admin.dokumentasi') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.admin.dokumentasi') }}">
+                    <li class="nav-item {{ request()->routeIs('admin.dokumentasi.index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.dokumentasi.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text icon"></i>
                             </span>
