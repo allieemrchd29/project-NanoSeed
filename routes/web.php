@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
+use App\Http\Controllers\SearchController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -20,8 +22,13 @@ Route::prefix('admin')->name('admin.')->group(function (){
     //protected(haruslogin)
     Route::middleware('admin.auth')->group(function(){
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('/search', [SearchController::class, 'index'])->name('search');
         Route::post('/logout', [AuthController::class,'logout' ])->name('logout');
 
+        //update profil
+        Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
+      
         Route::resource('kampanye', KampanyeController::class)->except(['show']);
         Route::resource('dokumentasi', DokumentasiController::class)->except(['show']);
         Route::delete('dokumentasi-foto/{foto}', [DokumentasiController::class, 'destroyFoto'])->name('dokumentasi.foto.destroy');
