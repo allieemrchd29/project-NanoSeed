@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KampanyeController;
 
@@ -19,8 +20,13 @@ Route::prefix('admin')->name('admin.')->group(function (){
     //protected(haruslogin)
     Route::middleware('admin.auth')->group(function(){
         Route::get('/dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('/search', [SearchController::class, 'index'])->name('search');
         Route::post('/logout', [AuthController::class,'logout' ])->name('logout');
 
+        //update profil
+        Route::get('profil', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profil', [ProfileController::class, 'update'])->name('profile.update');
+      
         Route::resource('kampanye', KampanyeController::class)->except(['show']);
     });
 
