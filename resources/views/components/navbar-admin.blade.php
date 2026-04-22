@@ -12,7 +12,7 @@
     }
 </style>
 
-{{-- BARIS ATAS: Brand + Notif + Avatar --}}
+{{-- Brand + Notif + Avatar --}}
 <header class="navbar navbar-expand-md d-print-none sticky-top">
     <div class="container-xl">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu"
@@ -27,7 +27,7 @@
 
         <div class="navbar-nav flex-row order-md-last">
 
-            {{-- Kolom Pencarian --}}
+            {{-- search --}}
             <div class="nav-item d-none d-md-flex me-3">
                 <form action="{{ route('admin.search') }}" method="GET" class="d-flex">
                     <div class="input-icon">
@@ -47,7 +47,7 @@
                 </a>
             </div>
 
-            {{-- Profile Dropdown --}}
+            {{-- - Profile Dropdown --}}
             <div class="nav-item dropdown">
                 <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown">
 
@@ -90,7 +90,7 @@
         </div>
 </header>
 
-{{-- BARIS BAWAH: Menu Navigasi Utama --}}
+{{-- Navigasi Utama --}}
 <div class="navbar-expand-md">
     <div class="collapse navbar-collapse" id="navbar-menu">
         <div class="navbar navbar-light">
@@ -124,8 +124,8 @@
                         </a>
                     </li>
 
-                    <li class="nav-item {{ request()->routeIs('views.admin.dampak') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.admin.dampak') }}">
+                    <li class="nav-item {{ request()->routeIs('admin.dampak.index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('admin.dampak.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-seeding icon"></i>
                             </span>
