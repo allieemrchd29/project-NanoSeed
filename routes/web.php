@@ -6,7 +6,8 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Admin\SearchController;
+use App\Http\Controllers\Admin\DampakController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -37,8 +38,6 @@ Route::prefix('admin')->name('admin.')->group(function (){
 });
 
 // NAVBAR ADMIN
-
-
 // Donasi
 // tabel rekapitulasi (Data dari Database)
 Route::get('/admin/donasi', [DonasiController::class, 'index'])->name('views.admin.donasi');
@@ -50,4 +49,8 @@ Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.do
 // Dampak
 Route::get('/admin/dampak', function () {
     return view('admin.dampak');
-})->name('views.admin.dampak');
+})->name('views.admin.dampak.index');
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('dampak', DampakController::class)->except(['show']);
+});
