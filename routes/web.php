@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\Admin\SearchController;
 
 //redirect ke halaman login
 Route::get('/', function () {
