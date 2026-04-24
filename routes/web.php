@@ -8,6 +8,7 @@ use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DampakController;
+use App\Http\Controllers\Admin\NotificationController;
 
 //redirect ke halaman login
 Route::get('/', function () {
@@ -33,6 +34,18 @@ Route::prefix('admin')->name('admin.')->group(function (){
         Route::resource('kampanye', KampanyeController::class)->except(['show']);
         Route::resource('dokumentasi', DokumentasiController::class)->except(['show']);
         Route::delete('dokumentasi-foto/{foto}', [DokumentasiController::class, 'destroyFoto'])->name('dokumentasi.foto.destroy');
+
+        //notifikasi
+        Route::prefix('notifications')->name('notifications.')->group(function () {
+            Route::get('/',          [NotificationController::class, 'index'])      ->name('index');
+            Route::post('/mark-all', [NotificationController::class, 'markAllRead'])->name('mark-all');
+            Route::post('/{id}/read',[NotificationController::class, 'markRead'])   ->name('read');
+            Route::delete('/{id}',   [NotificationController::class, 'destroy'])    ->name('destroy');
+        
+            // API untuk AJAX polling (dipanggil JavaScript di navbar)
+            Route::get('/api/count',  [NotificationController::class, 'unreadCount'])->name('api.count');
+            Route::get('/api/latest', [NotificationController::class, 'latest'])     ->name('api.latest');
+        });
     });
 
 });
