@@ -2,27 +2,6 @@
 
 @section('content')
     @include('components.navbar-admin')
-
-         <style>
-        .icon-option {
-        overflow: visible !important;
-        transition: all 0.2s ease-in-out;
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 80px; 
-    }
-
-    .icon-option i {
-        height: 30px; 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        margin-bottom: 8px;
-    }
-    </style>
     
 <div class="container-fluid px-4">
     <h4 class="fw-bold mb-3">Edit Dampak</h4>

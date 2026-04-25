@@ -9,11 +9,15 @@ use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DampakController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\DonaturController;
 
 //redirect ke halaman login
-Route::get('/', function () {
+Route::get('/loginAdmin', function () {
     return redirect()->route('admin.login');
 });
+
+// Route untuk halaman donatur
+Route::get('/', function () {return view('donatur.dashboard');})->name('donatur.dashboard');
 
 //Route admin
 Route::prefix('admin')->name('admin.')->group(function (){
@@ -67,3 +71,9 @@ Route::get('/admin/dampak', function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('dampak', DampakController::class)->except(['show']);
 });
+
+// donatur
+Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
+Route::get('/donatur/dokumentasi', function () {return view('donatur.dokumentasi');})->name('views.donatur.dokumentasi');
+Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
+Route::get('/donatur/kampanye', function () {return view('donatur.kampanye');})->name('views.donatur.kampanye');
