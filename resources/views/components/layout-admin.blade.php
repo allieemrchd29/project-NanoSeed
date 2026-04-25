@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('assets/dist/css/tabler.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/tabler-vendors.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/nanoseed.css') }}">
 
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -43,14 +44,14 @@
 <body class="antialiased">
 
     <div class="page">
-        {{-- Konten Dashboard --}}
+        {{-- Dashboard --}}
         @yield('content')
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js" defer></script>
     <script src="{{ asset('assets/dist/js/tabler.min.js') }}" defer></script>
 
-    {{-- Filepond JS --}}
+
     <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js" defer></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js" defer>
     </script>
