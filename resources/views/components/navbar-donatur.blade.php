@@ -1,8 +1,8 @@
 <header class="navbar navbar-expand-md d-print-none sticky-top navbar-light">
     <div class="container-xl">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-        data-bs-target="#navbar-menu-donatur"   {{-- ← fix: tambah -donatur --}}
-        aria-controls="navbar-menu-donatur"     {{-- ← fix: tambah -donatur --}}
+        data-bs-target="#navbar-menu-donatur" 
+        aria-controls="navbar-menu-donatur"  
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
