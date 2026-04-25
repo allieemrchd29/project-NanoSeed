@@ -8,11 +8,8 @@ use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DampakController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\Admin\NotificationController;
-=======
 use App\Http\Controllers\DonaturController;
->>>>>>> Stashed changes
 
 //redirect ke halaman login
 Route::get('/loginAdmin', function () {

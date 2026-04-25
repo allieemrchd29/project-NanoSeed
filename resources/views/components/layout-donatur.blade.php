@@ -30,7 +30,14 @@
 
   </div>
 
-  <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js" defer></script>
+  {{-- <script src="{{ asset('assets/dist/js/tabler.min.js') }}" defer></script> --}}
+
+
+  <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js" defer></script>
+  <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js" defer>
+  </script>
+  <script src="https://unpkg.com/filepond/dist/filepond.js" defer></script>
   @stack('scripts')
 </body>
 </html>
