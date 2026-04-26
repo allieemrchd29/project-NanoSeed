@@ -10,7 +10,7 @@
         <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
             <a href="/" class="text-decoration-none d-flex align-items-center">
                 <span class="fs-2">🌱</span>
-                <span class="ms-2 fw-bold text-dark">Nanoseed</span>
+                <span class="ms-2 fw-bold text-dark">NanoSeed</span>
             </a>
         </h1>
 
@@ -25,28 +25,28 @@
         <div class="collapse navbar-collapse" id="navbar-menu-donatur">
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
-                    <li class="nav-item {{ request()->routeIs('donatur.dashboard') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('donatur.dashboard') }}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dashboard"> 
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('views.donatur.kampanye') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.donatur.kampanye') }}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#aboutus"> 
+                            <span class="nav-link-title">About Us</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#kampanye"> 
                             <span class="nav-link-title">Kampanye</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('views.donatur.donasi') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
-                            <span class="nav-link-title">Donasi</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {{ request()->routeIs('views.donatur.dampak') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.donatur.dampak') }}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dampak"> 
                             <span class="nav-link-title">Dampak</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('views.donatur.dokumentasi') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ route('views.donatur.dokumentasi') }}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dokumentasi">
                             <span class="nav-link-title">Dokumentasi</span>
                         </a>
                     </li>
