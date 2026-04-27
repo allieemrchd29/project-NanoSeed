@@ -77,3 +77,4 @@ Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->nam
 Route::get('/donatur/dokumentasi', function () {return view('donatur.dokumentasi');})->name('views.donatur.dokumentasi');
 Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
 Route::get('/donatur/kampanye', function () {return view('donatur.kampanye');})->name('views.donatur.kampanye');
+Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
