@@ -9,7 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('admins', function (Blueprint $table) {
-            $table->string('profile')->nullable(); // Menambahkan kolom profile
+            $table->string('profile')->nullable(); 
         });
     }
 
