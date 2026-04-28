@@ -78,3 +78,6 @@ Route::get('/donatur/dokumentasi', function () {return view('donatur.dokumentasi
 Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
 Route::get('/donatur/kampanye', function () {return view('donatur.kampanye');})->name('views.donatur.kampanye');
 Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
+
+// about us
+Route::get('/donatur/about-us', function () {return view('donatur.aboutus');})->name('donatur.aboutus');
