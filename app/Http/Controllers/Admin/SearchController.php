@@ -1,7 +1,10 @@
+<?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Kampanye;
 
 class SearchController extends Controller
 {
@@ -9,6 +12,7 @@ class SearchController extends Controller
     {
         $query = $request->input('q');
         $hasil = Kampanye::where('nama_kampanye', 'LIKE', "%{$query}%")->get();
+        
         return view('admin.search-results', compact('hasil', 'query'));
     }
 }
