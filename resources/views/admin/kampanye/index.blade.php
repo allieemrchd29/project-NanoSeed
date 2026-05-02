@@ -9,7 +9,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="page-title">Data Kampanye</h2>
                 <a href="{{ route('admin.kampanye.create') }}" class="btn btn-success">
-                    <i class="ti ti-plus me-1"></i> Tambah Kampanye
+                    <i class="ti ti-plus me-1"></i> Tambah Data Kampanye
                 </a>
             </div>
 
@@ -114,6 +114,18 @@
     </div>
 
     <script>
+        @if (session('success'))
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: '{{ session('success') }}',
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
+            });
+        @endif
+
         let deleteFormId = null;
 
         function confirmDelete(id, nama) {
