@@ -24,7 +24,7 @@
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#dashboard">
+                        <a class="nav-link" href="/">
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
@@ -36,6 +36,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#kampanye">
                             <span class="nav-link-title">Kampanye</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
+                            <span class="nav-link-title">Donasi</span>
                         </a>
                     </li>
                     <li class="nav-item">

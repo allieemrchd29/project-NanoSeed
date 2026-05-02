@@ -54,7 +54,34 @@
                     </div>
                 @empty
                     <div class="col-12">
-                        <div class="alert alert-info">Belum ada kampanye aktif saat ini.</div>
+                        <!-- Backlog Button dan Konfirmasi Donasi (uji coba) -->
+                        <div class="alert alert-info d-flex align-items-center justify-content-between">
+                            <div>Belum ada kampanye aktif saat ini.</div>
+                            <button type="button" class="btn btn-outline-success btn-lg px-5" data-bs-toggle="modal" data-bs-target="#modal-preview-donasi">
+                                Donasi Sekarang
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- pop up konfirmasi donasi yang bakal ngarah ke formulir donasi -->
+                    <div class="modal modal-blur fade" id="modal-preview-donasi" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body text-center py-4">
+                                    <div class="mb-3 text-success"><i class="ti ti-leaf icon-lg"></i></div>
+                                    <h3 class="fw-bold">Konfirmasi Donasi</h3>
+                                    <div class="text-muted small mb-2">Anda akan mendukung kampanye:</div>
+                                    <div class="p-2 bg-green-lt rounded mb-3 text-success fw-bold">
+                                        Menanam di Gunung Rinjani Batch 2
+                                    </div>
+                                    <p class="small text-muted">Tekan "Lanjutkan" untuk mengisi data formulir dan lakukan pembayaran donasi.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link link-secondary me-auto" data-bs-dismiss="modal">Batal</button>
+                                    <a href="{{ route('views.donatur.donasi') }}" class="btn btn-success">Lanjutkan</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 @endforelse
             </div>
