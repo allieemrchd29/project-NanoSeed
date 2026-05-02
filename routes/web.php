@@ -17,7 +17,7 @@ Route::get('/loginAdmin', function () {
 });
 
 // Route untuk halaman donatur
-Route::get('/', function () {return view('donatur.dashboard');})->name('donatur.dashboard');
+Route::get('/', [DonaturController::class, 'index'])->name('donatur.dashboard');
 
 //Route admin
 Route::prefix('admin')->name('admin.')->group(function (){
@@ -74,9 +74,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 // donatur
 Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
-Route::get('/donatur/dokumentasi', function () {return view('donatur.dokumentasi');})->name('views.donatur.dokumentasi');
+Route::get('/donatur/dokumentasi', [DonaturController::class, 'dokumentasi'])->name('views.donatur.dokumentasi');
+Route::get('/donatur/dokumentasi/{id}', [DonaturController::class, 'detailDokumentasi'])->name('views.donatur.dokumentasi.detail');
 Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
-Route::get('/donatur/kampanye', function () {return view('donatur.kampanye');})->name('views.donatur.kampanye');
+Route::get('/donatur/kampanye', [DonaturController::class, 'kampanye'])->name('views.donatur.kampanye');
+Route::get('/donatur/kampanye/{id}', [DonaturController::class, 'detail'])->name('views.donatur.kampanye.detail');
 Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
 
 // about us
