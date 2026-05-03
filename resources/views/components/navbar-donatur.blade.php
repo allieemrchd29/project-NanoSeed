@@ -25,31 +25,49 @@
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a class="nav-link" href="/">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-home icon"></i>
+                            </span>
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#aboutus">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-users icon"></i>
+                            </span>
                             <span class="nav-link-title">About Us</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#kampanye">
+                             <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-sparkles icon"></i>
+                            </span>
                             <span class="nav-link-title">Kampanye</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-heart icon"></i>
+                            </span>
                             <span class="nav-link-title">Donasi</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#dampak">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-seeding icon"></i>
+                            </span>
                             <span class="nav-link-title">Dampak</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#dokumentasi">
+                             <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-file-text icon"></i>
+                            </span>
                             <span class="nav-link-title">Dokumentasi</span>
                         </a>
                     </li>
