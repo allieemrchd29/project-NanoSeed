@@ -60,8 +60,10 @@ Route::prefix('admin')->name('admin.')->group(function (){
 Route::get('/admin/donasi', [DonasiController::class, 'index'])->name('views.admin.donasi');
 // Menghapus data donatur
 Route::delete('/admin/donasi/{id}', [DonasiController::class, 'destroy'])->name('admin.donasi.destroy');
-// Menyimpan data (Akan digunakan oleh form donatur nanti)
-Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.donasi.store');
+// // Menyimpan data (Akan digunakan oleh form donatur nanti)
+// Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.donasi.store');
+// Route untuk Donatur kirim form
+Route::post('/donatur/donasi/simpan', [DonasiController::class, 'store'])->name('donatur.donasi.store');
 
 // Dampak
 Route::get('/admin/dampak', function () {
