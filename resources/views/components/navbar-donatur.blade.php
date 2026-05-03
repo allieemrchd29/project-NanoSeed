@@ -24,8 +24,8 @@
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="#dashboard">
-                             <span class="nav-link-icon d-md-none d-lg-inline-block">
+                        <a class="nav-link" href="/">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-home icon"></i>
                             </span>
                             <span class="nav-link-title">Dashboard</span>
@@ -33,6 +33,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#aboutus">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <i class="ti ti-users icon"></i>
+                            </span>
                             <span class="nav-link-title">About Us</span>
                         </a>
                     </li>
