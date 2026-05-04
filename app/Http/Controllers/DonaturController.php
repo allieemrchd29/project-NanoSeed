@@ -8,11 +8,23 @@ use Illuminate\Http\Request;
 
 class DonaturController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $kampanye = Kampanye::where('status_kampanye', 'aktif')->latest()->take(3)->get();
-        $dokumentasi = Dokumentasi::with('fotos')->latest()->take(3)->get();
-        return view('donatur.dashboard', compact('kampanye', 'dokumentasi'));
+        // ini untuk menangkap kata kunci search bar
+        $keyword = trim ($request->input('keyword'));
+        // ini query awal yang memastikan menampilkan kampanye yang sedang aktif
+        $query = \App\Models\Kampanye::where('status_kampanye', 'aktif')->latest();
+        // logika search
+        if ($keyword) {
+        $query->where(function($q) use ($keyword) {
+            $q->where('nama_kampanye', 'LIKE', "%{$keyword}%")
+              ->orWhere('deskripsi', 'LIKE', "%{$keyword}%");
+        });
+        }
+        $kampanye = $query->paginate(9);
+        $kampanye->appends(['keyword' => $keyword]);
+        $dokumentasi = \App\Models\Dokumentasi::with('fotos')->latest()->take(3)->get();
+        return view('donatur.dashboard', compact('kampanye', 'dokumentasi', 'keyword'));
     }
     public function kampanye()
     {

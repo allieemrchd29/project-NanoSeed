@@ -82,6 +82,7 @@ Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->nam
 Route::get('/donatur/kampanye', [DonaturController::class, 'kampanye'])->name('views.donatur.kampanye');
 Route::get('/donatur/kampanye/{id}', [DonaturController::class, 'detail'])->name('views.donatur.kampanye.detail');
 Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
+Route::get('/donatur/search', function () {return view('donatur.search');})->name('views.donatur.search');
 
 // about us
 Route::get('/donatur/about-us', function () {return view('donatur.aboutus');})->name('donatur.aboutus');
