@@ -1,21 +1,19 @@
 @extends('components.layout-donatur')
-
 @push('styles')
     <style>
         html {
             scroll-behavior: smooth;
         }
-
         section {
             scroll-margin-top: 80px;
         }
     </style>
 @endpush
-
 @section('content')
     @include('components.navbar-donatur')
-
     <div class="page-wrapper">
+
+        @if(!request('keyword'))
         <section id="dashboard" class="py-6 py-lg-8 border-bottom bg-white">
             <div class="container-xl">
                 <div class="row align-items-center g-4">
@@ -41,7 +39,6 @@
                 </div>
             </div>
         </section>
-
         <section class="py-5" style="background: linear-gradient(135deg, #beee83 0%, #80d459 100%);">
             <div class="container-xl">
                 <div class="row row-cards text-center">
@@ -64,7 +61,6 @@
                 </div>
             </div>
         </section>
-
         {{-- SECTION: About Us Teaser --}}
         <section id="aboutus" class="py-5 bg-light" style="scroll-margin-top: 80px;">
             <div class="container-xl">
@@ -104,40 +100,49 @@
                 </div>
             </div>
         </section>
+        @endif
 
         <section id="kampanye" class="py-6 bg-white">
             <div class="container-xl">
-                <div class="d-flex align-items-center mb-4">
-                    <h2 class="mb-0 fw-bold">Kampanye Penanaman</h2>
-                    <div class="ms-auto">
-                        <a href="{{ route('views.donatur.kampanye') }}" class="text-decoration-none fw-bold">Lihat Semua
-                            Kampanye →</a>
+                @if(request('keyword'))
+                    <div class="mb-5">
+                        <h2 class="fw-bold text-dark">Hasil Pencarian</h2>
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded-3" style="background-color: #f2fdf5; border-left: 5px solid #22c55e;">
+                            <p class="m-0 text-dark">
+                                Menampilkan hasil untuk: <strong>"{{ request('keyword') }}"</strong>
+                            </p>
+                            <a href="{{ url('/') }}" class="btn btn-sm btn-outline-success gap-2">
+                                <i class="fa-solid fa-xmark"></i> Bersihkan Pencarian
+                            </a>
+                        </div>
                     </div>
-                </div>
-
+                @else
+                    <div class="d-flex align-items-center mb-4">
+                        <h2 class="mb-0 fw-bold">Kampanye Penanaman</h2>
+                        <div class="ms-auto">
+                            <a href="{{ route('views.donatur.kampanye') }}" class="text-decoration-none fw-bold">Lihat Semua Kampanye →</a>
+                        </div>
+                    </div>
+                @endif
                 <div class="row row-cards">
                     @forelse($kampanye as $item)
                         <div class="col-md-6 col-lg-4">
-                            <div class="card card-stacked shadow-sm">
+                            <div class="card card-stacked shadow-sm h-100">
                                 <div class="card-img-top img-responsive img-responsive-21by9"
                                     style="background-image: url(
-                            {{ $item->gambar_kampanye ? asset('storage/' . $item->gambar_kampanye) : asset('assets/img/kampanye-1.jpg') }}
-                        )">
+                                    {{ $item->gambar_kampanye ? asset('storage/' . $item->gambar_kampanye) : asset('assets/img/kampanye-1.jpg') }}
+                                )">
                                 </div>
                                 <div class="card-body">
                                     <h3 class="card-title">{{ $item->nama_kampanye }}</h3>
-                                    <p class="text-muted">{{ Str::limit($item->deskripsi, 100) }}</p>
+                                    <p class="text-muted">{{ Str::limit($item->deskripsi, 120) }}</p>
                                     <div class="mt-3">
-                                        <div class="d-flex text-muted small">
-                                            <div>
-                                                <span
-                                                    class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success' : 'bg-secondary' }}">
-                                                    {{ ucfirst($item->status_kampanye) }}
-                                                </span>
-                                            </div>
+                                        <div class="d-flex align-items-center text-muted small">
+                                            <span class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success' : 'bg-secondary' }} me-2">
+                                                {{ ucfirst($item->status_kampanye) }}
+                                            </span>
                                             <div class="ms-auto">
-                                                Selesai:
-                                                {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
+                                                Selesai: {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
                                             </div>
                                         </div>
                                     </div>
@@ -151,14 +156,17 @@
                             </div>
                         </div>
                     @empty
-                        <div class="col-12">
-                            <div class="alert alert-info">Belum ada kampanye aktif saat ini.</div>
+                        <div class="col-12 text-center py-5">
+                            <img src="{{ asset('assets/img/empty-search.svg') }}" style="width: 150px;" class="mb-3">
+                            <h3 class="text-muted">Yah, kampanye "{{ request('keyword') }}" tidak ditemukan.</h3>
+                            <a href="{{ url('/') }}" class="btn btn-success mt-2">Lihat Semua Kampanye</a>
                         </div>
                     @endforelse
                 </div>
             </div>
         </section>
 
+        @if(!request('keyword'))
         <section id="dampak" class="py-6 bg-light">
             <div class="container-xl">
                 <div class="d-flex align-items-center mb-4">
@@ -192,7 +200,6 @@
                 </div>
             </div>
         </section>
-
         <section id="dokumentasi" class="py-6 bg-white">
             <div class="container-xl">
                 <div class="d-flex align-items-center mb-4">
@@ -224,5 +231,7 @@
                 </div>
             </div>
         </section>
+        @endif
+
     </div>
 @endsection
