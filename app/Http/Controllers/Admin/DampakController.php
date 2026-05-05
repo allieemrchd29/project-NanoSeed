@@ -62,4 +62,14 @@ class DampakController extends Controller
         return redirect()->route('admin.dampak.index')
                          ->with('success', 'Dampak berhasil dihapus.');
     }
+
+    // donatur
+    public function dampakDonatur()
+{
+    // Mengambil data terbaru dari tabel yang sama
+    $dampaks = Dampak::latest()->get(); 
+
+    // arahkan ke file donatur
+    return view('donatur.dampak', compact('dampaks'));
+}
 }

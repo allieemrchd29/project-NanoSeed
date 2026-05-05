@@ -14,8 +14,6 @@ return new class extends Migration
         Schema::create('dampaks', function (Blueprint $table) {
         $table->id();
         $table->string('judul');
-        $table->string('lokasi');      
-        $table->string('foto');
         $table->text('deskripsi');
         $table->timestamps();
     });
