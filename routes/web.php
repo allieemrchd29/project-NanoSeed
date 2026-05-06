@@ -75,7 +75,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 // donatur
-Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
+Route::get('/donatur/dampak', [DampakController::class, 'dampakDonatur'])->name('views.donatur.dampak');
 Route::get('/donatur/dokumentasi', [DonaturController::class, 'dokumentasi'])->name('views.donatur.dokumentasi');
 Route::get('/donatur/dokumentasi/{id}', [DonaturController::class, 'detailDokumentasi'])->name('views.donatur.dokumentasi.detail');
 Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');

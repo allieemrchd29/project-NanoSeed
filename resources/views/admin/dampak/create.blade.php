@@ -3,8 +3,15 @@
 @section('content')
     @include('components.navbar-admin')
 
-<div class="container-fluid px-4">
-    <h4 class="fw-bold mb-3">Tambah Dampak</h4>
+    <div class="page-wrapper">
+        <div class="container-xl py-4">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="page-title">Tambah Dampak</h2>
+                <a href="{{ route('admin.dampak.index') }}" class="btn btn-secondary">
+                    <i class="ti ti-arrow-left me-1"></i> Kembali
+                </a>
+            </div>
 
     <div class="card">
         <div class="card-body">
@@ -95,5 +102,6 @@
             </form>
         </div>
     </div>
+</div>
 </div>
 @endsection
