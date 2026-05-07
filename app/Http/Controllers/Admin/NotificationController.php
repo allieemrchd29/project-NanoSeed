@@ -35,6 +35,12 @@ class NotificationController extends Controller
     /**
      * tandai semua notifikasi sebagai sudah dibaca
      */
+    public function markAllRead()
+    {
+        AdminNotification::unread()->update(['is_read' => true]);
+
+        return redirect()->back()->with('success', 'Semua notifikasi telah ditandai sebagai dibaca.');
+    }
 
     /**
      * hapus notifikasi

@@ -11,6 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // pengecualian CSRF untuk Midtrans
+        $middleware->validateCsrfTokens(except: [
+            'donation/notification', 
+        ]);
+
+        // alias middleware yang sudah dibuat
         $middleware->alias([
             'admin.auth' => \App\Http\Middleware\AdminAuthenticate::class,
         ]);

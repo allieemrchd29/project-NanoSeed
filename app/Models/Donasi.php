@@ -19,5 +19,8 @@ class Donasi extends Model
         'email_donatur',
         'jumlah_donasi',
         'nomor_telepon',
+        'order_id',    
+        'snap_token',   
+        'status',      
     ];
 }
