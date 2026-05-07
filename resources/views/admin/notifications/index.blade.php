@@ -152,10 +152,15 @@
         </div>
 
         @if($notifications->hasPages())
-        <div class="card-footer d-flex align-items-center">
-          {{ $notifications->links() }}
-        </div>
-        @endif
+            <div class="card-footer d-flex align-items-center justify-content-between py-3">
+              <p class="m-0 text-muted">
+                Menampilkan {{ $notifications->firstItem() }}–{{ $notifications->lastItem() }} dari {{ $notifications->total() }} notifikasi
+              </p>
+              <div>
+              {{ $notifications->links('pagination::simple-bootstrap-5') }}
+            </div>
+            </div>
+          @endif
       </div>
 
     </div>
@@ -174,5 +179,21 @@
   </footer>
 
 </div>
+
+@push('styles')
+<style>
+  .card-footer .pagination {
+    margin-bottom: 0;
+  }
+  .card-footer {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  nav[role="navigation"] > div:first-child,
+  .pagination-info {
+    display: none !important;
+  }
+</style>
+@endpush
 
 @endsection

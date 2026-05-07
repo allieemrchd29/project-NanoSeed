@@ -7,8 +7,7 @@
     <div class="container-xl py-5">
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-6">
-                <form action="{{ route('donatur.donasi.store') }}" method="POST" class="card border-0 shadow-sm">
-                    @csrf
+                <form action="{{ route('donation.pay') }}" method="POST" class="card border-0 shadow-sm">                       @csrf
                     <div class="card-status-top bg-success"></div>
                     <div class="card-header py-3">
                         <h3 class="card-title fw-bold text-success">
@@ -46,8 +45,9 @@
                         <div class="mb-0">
                             <label class="form-label fw-semibold">Nominal <span class="text-danger">*</span></label>
                             <div class="input-group input-group-flat">
-                                <span class="input-group-text bg-light border-end-0">Rp</span>
-                                <input type="number" name="jumlah_donasi" class="form-control ps-1" min="1000" placeholder="0" required>
+                                <span class="input-group-text bg-light border-end-0">Rp.</span>
+                                <input type="number" name="jumlah_donasi" class="form-control ps-1" 
+                                    min="10000" placeholder="10.000/Pohon" required>                            
                             </div>
                         </div>
                     </div>

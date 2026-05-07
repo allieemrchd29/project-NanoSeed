@@ -3,13 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\DonasiController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\KampanyeController;
 use App\Http\Controllers\DokumentasiController;
 use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DampakController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\DonaturController;
+
 
 //redirect ke halaman login
 Route::get('/loginAdmin', function () {
@@ -54,35 +55,48 @@ Route::prefix('admin')->name('admin.')->group(function (){
 
 });
 
-// NAVBAR ADMIN
-// Donasi
-// tabel rekapitulasi (Data dari Database)
-Route::get('/admin/donasi', [DonasiController::class, 'index'])->name('views.admin.donasi');
-// Menghapus data donatur
-Route::delete('/admin/donasi/{id}', [DonasiController::class, 'destroy'])->name('admin.donasi.destroy');
-// // Menyimpan data (Akan digunakan oleh form donatur nanti)
-// Route::post('/admin/donasi', [DonasiController::class, 'store'])->name('admin.donasi.store');
-// Route untuk Donatur kirim form
-Route::post('/donatur/donasi/simpan', [DonasiController::class, 'store'])->name('donatur.donasi.store');
+    // NAVBAR ADMIN
+    // Donasi
+    // tabel rekapitulasi (Data dari Database)
+    Route::get('/admin/donasi', [DonationController::class, 'index'])->name('views.admin.donasi');
+    // tabel rekapitulasi terbaru
+    Route::get('/admin/donasi/latest', [DonationController::class, 'latest'])->name('admin.donasi.latest');
+    //export pdf
+    Route::get('/admin/donasi/export-pdf', [DonationController::class, 'exportPdf'])->name('admin.donasi.export-pdf');
+    // Menghapus data donatur
+    Route::delete('/admin/donasi/{id}', [DonationController::class, 'destroy'])->name('admin.donasi.destroy');
+    // // Menyimpan data (Akan digunakan oleh form donatur nanti)
+    // Route::post('/admin/donasi', [DonationController::class, 'store'])->name('admin.donasi.store');
+    // Route untuk Donatur kirim form
+    Route::post('/donatur/donasi/simpan', [DonationController::class, 'store'])->name('donatur.donasi.store');
 
-// Dampak
-Route::get('/admin/dampak', function () {
-    return view('admin.dampak');
-})->name('views.admin.dampak.index');
+    // Dampak
+    Route::get('/admin/dampak', function () {
+        return view('admin.dampak');
+    })->name('views.admin.dampak.index');
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('dampak', DampakController::class)->except(['show']);
-});
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('dampak', DampakController::class)->except(['show']);
+    });
 
-// donatur
-Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
-Route::get('/donatur/dokumentasi', [DonaturController::class, 'dokumentasi'])->name('views.donatur.dokumentasi');
-Route::get('/donatur/dokumentasi/{id}', [DonaturController::class, 'detailDokumentasi'])->name('views.donatur.dokumentasi.detail');
-Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
-Route::get('/donatur/kampanye', [DonaturController::class, 'kampanye'])->name('views.donatur.kampanye');
-Route::get('/donatur/kampanye/{id}', [DonaturController::class, 'detail'])->name('views.donatur.kampanye.detail');
-Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
-Route::get('/donatur/search', function () {return view('donatur.search');})->name('views.donatur.search');
+    // donatur
+    Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
+    Route::get('/donatur/dokumentasi', [DonaturController::class, 'dokumentasi'])->name('views.donatur.dokumentasi');
+    Route::get('/donatur/dokumentasi/{id}', [DonaturController::class, 'detailDokumentasi'])->name('views.donatur.dokumentasi.detail');
+    Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');
+    Route::get('/donatur/kampanye', [DonaturController::class, 'kampanye'])->name('views.donatur.kampanye');
+    Route::get('/donatur/kampanye/{id}', [DonaturController::class, 'detail'])->name('views.donatur.kampanye.detail');
+    Route::get('/donatur/aboutus', function () {return view('donatur.aboutus');})->name('views.donatur.aboutus');
+    Route::get('/donatur/search', function () {return view('donatur.search');})->name('views.donatur.search');
 
-// about us
-Route::get('/donatur/about-us', function () {return view('donatur.aboutus');})->name('donatur.aboutus');
+    // about us
+    Route::get('/donatur/about-us', function () {return view('donatur.aboutus');})->name('donatur.aboutus');
+
+    // Route Payment Midtrans
+    Route::post('/donation/pay',          [DonationController::class, 'createPayment'])    ->name('donation.pay');
+    Route::get('/donation/payment',       [DonationController::class, 'paymentPage'])      ->name('donation.payment-page');
+    Route::post('/donation/notification', [DonationController::class, 'handleNotification'])->name('donation.notification');
+    Route::get('/donation/status/{orderId}', [DonationController::class, 'checkStatus'])   ->name('donation.status');
+
+
+
