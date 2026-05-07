@@ -168,38 +168,46 @@
 
         @if(!request('keyword'))
         <section id="dampak" class="py-6 bg-light">
-            <div class="container-xl">
-                <div class="d-flex align-items-center mb-4">
-                    <h2 class="mb-0 fw-bold">Dampak Nyata</h2>
-                    <div class="ms-auto">
-                        <a href="{{ route('views.donatur.dampak') }}" class="text-decoration-none fw-bold">Lihat Detail
-                            Dampak →</a>
-                    </div>
-                </div>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="card p-4 border-0 shadow-sm h-100">
-                            <h4 class="text-success fw-bold">Monitoring Pertumbuhan</h4>
-                            <p class="text-muted small">Kami memastikan setiap pohon yang kamu tanam dipantau secara berkala
-                                melalui sistem monitoring kami.</p>
-                            <img src="{{ asset('assets/img/monitoring.jpg') }}" class="rounded-3 img-fluid mt-auto"
-                                alt="Monitoring">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card p-4 border-0 shadow-sm h-100">
-                            <h4 class="text-success fw-bold">Kontribusi Oksigen</h4>
-                            <p class="text-muted small">Cek seberapa besar kontribusi oksigen yang telah dihasilkan dari
-                                hasil donasimu.</p>
-                            <div class="mt-auto pt-5 text-center">
-                                <div class="display-4 fw-bold text-success">98%</div>
-                                <div class="text-muted">Bibit Tumbuh Sempurna</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="container-xl">
+        <div class="d-flex align-items-center mb-4">
+            <h2 class="mb-0 fw-bold">Dampak Nyata</h2>
+            <div class="ms-auto">
+                {{-- Link ke halaman dampak --}}
+                <a href="{{ route('views.donatur.dampak') }}" class="text-decoration-none fw-bold text-success">
+                    Lihat Detail Dampak →
+                </a>
             </div>
-        </section>
+        </div>
+
+        <div class="row g-4">
+            {{-- Ambil data dampak --}}
+            @forelse($dampaks as $d)
+                <div class="col-md-6">
+                    <div class="card p-4 border-0 shadow-sm h-100">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="avatar avatar-md bg-success-lt rounded-circle text-success me-3">
+                                <i class="fas {{ $d->icon ?? 'fa-leaf' }}"></i>
+                            </span>
+                            <h4 class="text-success fw-bold mb-0">{{ $d->judul }}</h4>
+                        </div>
+                        
+                        {{-- Ambil deskripsi --}}
+                        <p class="text-muted small mb-0">{{ Str::limit($d->deskripsi, 120) }}</p>
+                        
+                        <div class="mt-auto pt-3 border-top mt-3">
+                            <small class="text-muted italic">Data NanoSeed</small>
+                        </div>
+                    </div>
+                </div>
+                {{-- kalau kblm ada data --}}
+            @empty
+                <div class="col-12">
+                    <div class="alert alert-info">Belum ada informasi dampak</div>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
         <section id="dokumentasi" class="py-6 bg-white">
             <div class="container-xl">
                 <div class="d-flex align-items-center mb-4">
