@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kampanye;
 use App\Models\Dokumentasi;
+use App\Models\Dampak;
 use Illuminate\Http\Request;
 
 class DonaturController extends Controller
@@ -24,7 +25,11 @@ class DonaturController extends Controller
         $kampanye = $query->paginate(9);
         $kampanye->appends(['keyword' => $keyword]);
         $dokumentasi = \App\Models\Dokumentasi::with('fotos')->latest()->take(3)->get();
-        return view('donatur.dashboard', compact('kampanye', 'dokumentasi', 'keyword'));
+
+         // Ambil 2 data dampak terbaru 
+        $dampaks = Dampak::latest()->take(2)->get(); 
+        
+        return view('donatur.dashboard', compact('kampanye', 'dokumentasi', 'dampaks'));
     }
     public function kampanye()
     {
