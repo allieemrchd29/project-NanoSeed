@@ -10,27 +10,46 @@ use Illuminate\Http\Request;
 class DonaturController extends Controller
 {
     public function index(Request $request)
-    {
-        // ini untuk menangkap kata kunci search bar
-        $keyword = trim ($request->input('keyword'));
-        // ini query awal yang memastikan menampilkan kampanye yang sedang aktif
-        $query = \App\Models\Kampanye::where('status_kampanye', 'aktif')->latest();
-        // logika search
-        if ($keyword) {
+{
+    $keyword = trim($request->input('keyword'));
+    $query = \App\Models\Kampanye::where('status_kampanye', 'aktif')->latest();
+
+    if ($keyword) {
         $query->where(function($q) use ($keyword) {
             $q->where('nama_kampanye', 'LIKE', "%{$keyword}%")
               ->orWhere('deskripsi', 'LIKE', "%{$keyword}%");
         });
-        }
-        $kampanye = $query->paginate(9);
-        $kampanye->appends(['keyword' => $keyword]);
-        $dokumentasi = \App\Models\Dokumentasi::with('fotos')->latest()->take(3)->get();
 
-         // Ambil 2 data dampak terbaru 
-        $dampaks = Dampak::latest()->take(2)->get(); 
-        
-        return view('donatur.dashboard', compact('kampanye', 'dokumentasi', 'dampaks'));
+        // ← TAMBAHAN: query dampak & dokumentasi saat search
+        $dampak = Dampak::where('judul', 'LIKE', "%{$keyword}%")
+                        ->orWhere('deskripsi', 'LIKE', "%{$keyword}%")
+                        ->get();
+
+        $dokumentasi = Dokumentasi::with('fotos', 'kampanye')
+                        ->where('keterangan', 'LIKE', "%{$keyword}%")
+                        ->get();
+    } else {
+        // kalau ga ada keyword, kosongkan aja
+        $dampak = collect();
+        $dokumentasi = collect();
     }
+
+    $kampanye = $query->paginate(9);
+    $kampanye->appends(['keyword' => $keyword]);
+
+    // dokumentasi & dampaks untuk dashboard normal (take 3 & take 2)
+    $dokumentasiDashboard = \App\Models\Dokumentasi::with('fotos')->latest()->take(3)->get();
+    $dampaks = Dampak::latest()->take(2)->get();
+
+    return view('donatur.dashboard', compact(
+        'kampanye', 
+        'dokumentasi',      // hasil search dokumentasi
+        'dampak',           // hasil search dampak
+        'dokumentasiDashboard', // untuk section dokumentasi dashboard normal
+        'dampaks'           // untuk section dampak dashboard normal
+    ));
+}
+    
     public function kampanye()
     {
         $kampanye = Kampanye::where('status_kampanye', 'aktif')->latest()->get();
