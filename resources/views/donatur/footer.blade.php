@@ -1,10 +1,10 @@
 <style>
     .nanoseed-footer {
-        background-color: #04440f; 
+        background-color: #33cc4c; 
         color: #f3f4f6;
-        padding: 40px 20px 20px 20px;
+        padding: 20px;
         font-family: sans-serif;
-        margin-top: auto; /
+        margin-top: auto; 
     }
     .footer-container {
         max-width: 1200px;
@@ -19,7 +19,7 @@
         min-width: 250px; 
     }
     .footer-section h3 {
-        color: #57f872; 
+        color: #0e0f0e; 
         margin-bottom: 15px;
         font-size: 1.2rem;
     }
@@ -42,11 +42,12 @@
     }
     .footer-bottom {
         text-align: center;
-        margin-top: 40px;
+        margin-top: 20px;
         padding-top: 20px;
         border-top: 1px solid #374151;
         font-size: 0.85rem;
-        color: #9ca3af;
+        color:  #e8ebe8;
+        background-color: #33cc4c;  
     }
 </style>
 
