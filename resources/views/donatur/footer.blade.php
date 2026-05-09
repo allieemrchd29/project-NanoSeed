@@ -1,11 +1,12 @@
 <style>
     .nanoseed-footer {
-        background-color: #33cc4c; 
+        background-color: #33cc4c;
         color: #f3f4f6;
         padding: 20px;
         font-family: sans-serif;
-        margin-top: auto; 
+        margin-top: auto;
     }
+
     .footer-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -14,21 +15,25 @@
         gap: 30px;
         justify-content: space-between;
     }
+
     .footer-section {
         flex: 1;
-        min-width: 250px; 
+        min-width: 250px;
     }
+
     .footer-section h3 {
-        color: #0e0f0e; 
+        color: #0e0f0e;
         margin-bottom: 15px;
         font-size: 1.2rem;
     }
+
     .footer-section p {
         line-height: 1.6;
         font-size: 0.95rem;
         color: #d1d5db;
         margin-bottom: 10px;
     }
+
     .sosmed-links a {
         display: inline-block;
         margin-right: 15px;
@@ -37,17 +42,19 @@
         font-size: 1.5rem;
         transition: color 0.3s;
     }
+
     .sosmed-links a:hover {
         color: #dae2db;
     }
+
     .footer-bottom {
         text-align: center;
         margin-top: 20px;
         padding-top: 20px;
         border-top: 1px solid #374151;
         font-size: 0.85rem;
-        color:  #e8ebe8;
-        background-color: #33cc4c;  
+        color: #e8ebe8;
+        background-color: #33cc4c;
     }
 </style>
 
@@ -55,7 +62,8 @@
     <div class="footer-container">
         <div class="footer-section">
             <h3>Tentang NanoSeed</h3>
-            <p>Membangun ekosistem teknologi yang inklusif dan inovatif. Kami berkomitmen untuk memberdayakan komunitas melalui solusi digital yang berdampak nyata bagi masyarakat.</p>
+            <p>Membangun ekosistem teknologi yang inklusif dan inovatif. Kami berkomitmen untuk memberdayakan komunitas
+                melalui solusi digital yang berdampak nyata bagi masyarakat.</p>
         </div>
 
         <div class="footer-section">
@@ -71,12 +79,12 @@
             <div class="sosmed-links">
                 <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                 <a href="#" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>                
+                <a href="#" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
                 <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
             </div>
         </div>
     </div>
-    
+
     <div class="footer-bottom">
         <p>&copy; {{ date('Y') }} NanoSeed. All rights reserved.</p>
     </div>

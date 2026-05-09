@@ -136,8 +136,91 @@
                 </div>
             </div>
 
+            {{-- HASIL DAMPAK --}}
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center gap-2">
+                    <i class="ti ti-leaf text-green"></i>
+                    <strong>Dampak</strong>
+                    <span class="badge bg-green-lt text-green ms-1">{{ $dampak->count() }}</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-vcenter table-bordered card-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Judul</th>
+                                <th>Icon</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($dampak as $i => $item)
+                                <tr>
+                                    <td>{{ $i + 1 }}</td>
+                                    <td>{{ $item->judul }}</td>
+                                    <td><i class="{{ $item->icon }}"></i> {{ $item->icon }}</td>
+                                    <td>{{ Str::limit($item->deskripsi, 60) }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.dampak.edit', $item->id) }}"
+                                            class="btn btn-sm btn-warning">Edit</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        <i class="ti ti-search-off me-1"></i>
+                                        Tidak ada dampak yang cocok dengan "<strong>{{ $query }}</strong>"
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {{-- HASIL DONASI --}}
+            <div class="card mb-4">
+                <div class="card-header d-flex align-items-center gap-2">
+                    <i class="ti ti-heart text-red"></i>
+                    <strong>Donasi</strong>
+                    <span class="badge bg-red-lt text-red ms-1">{{ $donasi->count() }}</span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-vcenter table-bordered card-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Donatur</th>
+                                <th>Email</th>
+                                <th>Jumlah Donasi</th>
+                                <th>No. Telepon</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($donasi as $i => $item)
+                                <tr>
+                                    <td>{{ $i + 1 }}</td>
+                                    <td>{{ $item->nama_donatur }}</td>
+                                    <td>{{ $item->email_donatur }}</td>
+                                    <td>Rp {{ number_format($item->jumlah_donasi, 0, ',', '.') }}</td>
+                                    <td>{{ $item->nomor_telepon }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        <i class="ti ti-search-off me-1"></i>
+                                        Tidak ada donasi yang cocok dengan "<strong>{{ $query }}</strong>"
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {{-- Kalau semua hasil kosong --}}
-            @if ($kampanye->isEmpty() && $dokumentasi->isEmpty())
+            @if ($kampanye->isEmpty() && $dokumentasi->isEmpty() && $dampak->isEmpty() && $donasi->isEmpty())
                 <div class="empty">
                     <div class="empty-icon">
                         <i class="ti ti-search-off" style="font-size: 3rem; color: #ccc;"></i>

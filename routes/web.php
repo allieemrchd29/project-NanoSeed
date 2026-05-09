@@ -71,16 +71,20 @@ Route::prefix('admin')->name('admin.')->group(function (){
     Route::post('/donatur/donasi/simpan', [DonationController::class, 'store'])->name('donatur.donasi.store');
 
     // Dampak
-    Route::get('/admin/dampak', function () {
-        return view('admin.dampak');
-    })->name('views.admin.dampak.index');
+    Route::get('/donatur/dampak', function () {
+    $dampaks = \App\Models\Dampak::latest()->get();
+    return view('donatur.dampak', compact('dampaks'));
+    })->name('views.donatur.dampak');
 
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('dampak', DampakController::class)->except(['show']);
     });
 
     // donatur
-    Route::get('/donatur/dampak', function () {return view('donatur.dampak');})->name('views.donatur.dampak');
+    Route::get('/donatur/dampak', function () {
+        $dampaks = \App\Models\Dampak::latest()->get();
+        return view('donatur.dampak', compact('dampaks'));
+    })->name('views.donatur.dampak');
     Route::get('/donatur/dokumentasi', [DonaturController::class, 'dokumentasi'])->name('views.donatur.dokumentasi');
     Route::get('/donatur/dokumentasi/{id}', [DonaturController::class, 'detailDokumentasi'])->name('views.donatur.dokumentasi.detail');
     Route::get('/donatur/donasi', function () {return view('donatur.donasi');})->name('views.donatur.donasi');

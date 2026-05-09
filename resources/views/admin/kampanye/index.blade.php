@@ -62,7 +62,7 @@
                                             <span class="text-muted fst-italic">Tidak ada</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td style="white-space: nowrap;">
                                         <a href="{{ route('admin.kampanye.edit', $item->id) }}"
                                             class="btn btn-sm btn-warning me-1">Edit</a>
 

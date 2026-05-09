@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Kampanye;
 use App\Models\Dampak;       
-use App\Models\Dokumentasi;  
+use App\Models\Dokumentasi;
+use App\Models\Donasi;  
 
 class SearchController extends Controller
 {
@@ -24,7 +25,15 @@ class SearchController extends Controller
                         })
                         ->with('kampanye') // eager load relasi kampanye
                         ->get();
+        
+        $dampak = Dampak::where('judul', 'LIKE', "%{$query}%")
+                        ->orWhere('deskripsi', 'LIKE', "%{$query}%")
+                        ->get();
 
-        return view('admin.search', compact('kampanye', 'dokumentasi', 'query'));
+        $donasi = Donasi::where('nama_donatur', 'LIKE', "%{$query}%")
+                        ->orWhere('email_donatur', 'LIKE', "%{$query}%")
+                        ->get();
+
+        return view('admin.search', compact('kampanye', 'dokumentasi', 'dampak', 'donasi', 'query'));
     }
 }

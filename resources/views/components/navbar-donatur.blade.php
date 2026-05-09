@@ -41,7 +41,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#kampanye">
-                             <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-sparkles icon"></i>
                             </span>
                             <span class="nav-link-title">Kampanye</span>
@@ -65,28 +65,32 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#dokumentasi">
-                             <span class="nav-link-icon d-md-none d-lg-inline-block">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text icon"></i>
                             </span>
                             <span class="nav-link-title">Dokumentasi</span>
                         </a>
                     </li>
+
                     <!-- fitur search -->
                     <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
                         <form action="{{ route('donatur.dashboard') }}" method="GET" class="m-0">
-                            <div class="input-group" style="border-radius: 30px; overflow: hidden; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15); border: 1px solid #f3f7f5;">
-                                <input type="text" name="keyword" class="form-control border-0 px-3" 
-                                    placeholder="Cari kebaikan 🌱..." 
-                                    value="{{ request('keyword') }}"
-                                    style="background-color: #f2fdf5; font-size: 0.9rem; outline: none; box-shadow: none; min-width: 200px;">
+                            <div class="input-group"
+                                style="border-radius: 30px; overflow: hidden; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15); border: 1px solid #f3f7f5;">
+                                <input type="text" name="keyword" class="form-control border-0 px-3"
+                                    placeholder="Cari kebaikan 🌱..." value="{{ request('keyword') }}"
+                                    style="background-color: #f2fdf5; font-size: 0.9rem; outline: none; box-shadow: none; min-width: 330px;">
                                 <!-- tombol bersihkan pencarian -->
-                                @if(request('keyword'))
-                                    <a href="{{ url('/') }}" class="btn border-0 d-flex align-items-center px-2" style="background-color: #f2fdf5; color: #dc3545; text-decoration: none;" title="Hapus pencarian">
+                                @if (request('keyword'))
+                                    <a href="{{ url('/') }}" class="btn border-0 d-flex align-items-center px-2"
+                                        style="background-color: #f2fdf5; color: #dc3545; text-decoration: none;"
+                                        title="Hapus pencarian">
                                         <i class="fa-solid fa-xmark"></i>
                                     </a>
                                 @endif
 
-                                <button class="btn border-0 px-3" type="submit" style="background-color: #cef3db; color: #04440f; transition: 0.3s;">
+                                <button class="btn border-0 px-3" type="submit"
+                                    style="background-color: #cef3db; color: #04440f; transition: 0.3s;">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </div>
