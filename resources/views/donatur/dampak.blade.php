@@ -8,7 +8,14 @@
     <div class="container-xl py-5">
         {{-- Header --}}
         <div class="text-center mb-5">
-            <h2 class="display-6 text-success fw-bold">Dampak Ekologi NanoSeed</h2>
+             <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-0">Dampak Ekologi NanoSeed
+                </div>
+                <a href="{{ route('donatur.dashboard') }}" class="btn btn-outline-secondary">
+                    <i class="ti ti-arrow-left me-1"></i> Kembali
+                </a>
+            </div>
             <p class="text-muted mx-auto" style="max-width: 600px;">
                 Kontribusi nyata dari setiap pohon yang Anda tanam untuk keberlangsungan ekosistem dan penghijauan bumi.
             </p>

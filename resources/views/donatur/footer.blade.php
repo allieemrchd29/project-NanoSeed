@@ -1,10 +1,26 @@
 <style>
     .nanoseed-footer {
-        background-color: #33cc4c; 
+        position: relative;
         color: #f3f4f6;
-        padding: 20px;
+        padding: 11px;
+        padding-bottom: 0;
         font-family: sans-serif;
         margin-top: auto; 
+        overflow: hidden;
+        background-image: url('http://localhost:8000/assets/img/imagenano.jpg');        
+        background-size: cover;
+        background-position: center;
+    }
+    .nanoseed-footer::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-color: rgba(4, 41, 10, 0.75); 
+        z-index: 0;
+    }
+    .nanoseed-footer > * {
+        position: relative;
+        z-index: 1;
     }
     .footer-container {
         max-width: 1200px;
@@ -19,7 +35,7 @@
         min-width: 250px; 
     }
     .footer-section h3 {
-        color: #0e0f0e; 
+        color: #e7ece7; 
         margin-bottom: 15px;
         font-size: 1.2rem;
     }
@@ -42,12 +58,12 @@
     }
     .footer-bottom {
         text-align: center;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #374151;
-        font-size: 0.85rem;
+        margin-top: 0;
+        padding: 5px;
+        paddinh-bottom: 0;
+        font-size: 1.07rem;
         color:  #e8ebe8;
-        background-color: #33cc4c;  
+        background-color: transparent;
     }
 </style>
 
