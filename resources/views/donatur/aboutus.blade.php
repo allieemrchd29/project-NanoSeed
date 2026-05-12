@@ -7,7 +7,13 @@
     <section id="aboutus" class="py-5">
         <div class="container-xl">
             {{-- HEADER --}}
-            <div class="row mb-4">
+            <div class="row mb-4 align-items-start">
+                <div class="col-12 d-flex justify-content-between align-items-center mb-2">
+                    <div></div>
+                    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary btn-sm">
+                        ← Kembali
+                    </a>
+                </div>
                 <div class="col-12">
                     <h2 class="fw-bold display-6 text-dark">Kami hadir untuk menjembatani kepedulian dengan aksi nyata</h2>
                     <p class="text-muted mt-3">NanoSeed lahir dari keprihatinan terhadap laju deforestasi di Indonesia. Kami

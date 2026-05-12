@@ -253,7 +253,7 @@
                         <div class="ms-auto">
                             <a href="{{ route('views.donatur.dampak') }}"
                                 class="text-decoration-none fw-bold text-success">
-                                Lihat Detail Dampak →
+                                Lihat Semua Dampak →
                             </a>
                         </div>
                     </div>
