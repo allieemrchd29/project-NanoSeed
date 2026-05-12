@@ -1,7 +1,6 @@
 @extends('components.layout-donatur')
 
 @section('content')
-    @include('components.navbar-donatur')
 
     <div class="page-wrapper">
         {{-- Header --}}
@@ -39,23 +38,30 @@
                                     {{ $d->deskripsi }}
                                 </p>
                             </div>
-                        </div>
-                    </div>
-
-                    {{-- blm ada data --}}
-                @empty
-                    <div class="col-12 text-center py-5">
-                        <div class="empty">
-                            <div class="empty-icon text-muted">
-                                <i class="ti ti-ghost fs-1"></i>
-                            </div>
-                            <p class="empty-title">Belum ada data</p>
-                            <p class="empty-subtitle text-muted">Data dampak akan muncul setelah Admin mengisi informasi.
+                            
+                            {{-- Judul --}}
+                            <h3 class="card-title h2 mb-3">{{ $d->judul }}</h3>
+                            {{-- Deskripsi --}}
+                            <p class="text-secondary mb-0" style="line-height: 1.6;">
+                                {{ $d->deskripsi }}
                             </p>
                         </div>
                     </div>
-                @endforelse
-            </div>
+                </div>
+            
+                {{-- blm ada data --}}
+                @empty
+                <div class="col-12 text-center py-5">
+                    <div class="empty">
+                        <div class="empty-icon text-muted">
+                            <i class="ti ti-ghost fs-1"></i>
+                        </div>
+                        <p class="empty-title">Belum ada data</p>
+                        <p class="empty-subtitle text-muted">Data dampak akan muncul setelah Admin mengisi informasi.</p>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
+</div>
 @endsection
