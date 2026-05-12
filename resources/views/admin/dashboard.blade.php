@@ -13,7 +13,9 @@
       <div class="row g-2 align-items-center">
         <div class="col">
           <h2 class="page-title">Dashboard</h2>
-          <div class="text-muted mt-1">Selamat datang kembali, <strong>{{ $admin->name }}</strong></div>
+          <div class="text-muted mt-1">
+             Selamat datang kembali, <strong>{{ Auth::user()->name ?? 'Admin' }}</strong>
+          </div>          
         </div>
       </div>
     </div>
@@ -100,17 +102,26 @@
 
       {{-- Welcome Card --}}
       <div class="card">
-        <div class="card-status-top bg-success"></div>
-        <div class="card-body">
-          <h3 class="card-title">Login Berhasil!</h3>
-          <p class="text-muted mb-0">
-            Kamu berhasil masuk sebagai <strong>{{ $admin->name }}</strong> 
-            dengan email <strong>{{ $admin->email }}</strong>. 
-            Semua modul administrasi Nanoseed siap dikelola di sini.
-          </p>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3 class="card-title">Grafik Donasi Masuk</h3>
+            <div class="d-flex align-items-center">
+                <span class="text-muted me-3">Total Donatur: <strong>{{ $totalDonatur ?? 0 }} Orang</strong></span>
+                
+                <div class="dropdown">
+                    <form action="{{ route('admin.dashboard') }}" method="GET" id="formFilter">
+                        <select name="range" class="form-select form-select-sm" onchange="this.form.submit()">
+                            <option value="7_days" {{ request('range') == '7_days' ? 'selected' : '' }}>7 Hari Terakhir</option>
+                            <option value="30_days" {{ request('range') == '30_days' ? 'selected' : '' }}>30 Hari Terakhir</option>
+                            <option value="this_month" {{ request('range') == 'this_month' ? 'selected' : '' }}>Bulan Ini</option>
+                        </select>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-
+        <div class="card-body">
+            <div id="chart-donasi-keren" style="height: 300px;"></div>
+        </div>
+    </div>
     </div>
   </div>
 
@@ -130,5 +141,57 @@
   </footer>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var options = {
+    series: [{
+        name: 'Donasi Masuk',
+        data: @json($totals)
+    }],
+    chart: {
+        type: 'area',
+        height: 350,
+        zoom: { enabled: false },
+        toolbar: { show: false }
+    },
+    colors: ['#2fb344'], 
+    fill: {
+        type: 'gradient',
+        gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.2,
+            stops: [0, 90, 100]
+        }
+    },
+    dataLabels: { enabled: false },
+    stroke: {
+        curve: 'straight', 
+        width: 3
+    },
+    xaxis: {
+        categories: @json($labels),
+        type: 'datetime',
+        labels: { format: 'dd MMM' }
+    },
+    yaxis: {
+        labels: {
+            formatter: function (val) {
+                return "Rp " + val.toLocaleString('id-ID');
+            }
+        }
+    },
+    markers: {
+        size: 5, 
+        colors: ['#2fb344'],
+        strokeColors: '#fff',
+        strokeWidth: 2,
+    }
+};
 
+        var chart = new ApexCharts(document.querySelector("#chart-donasi-keren"), options);
+        chart.render();
+    });
+</script>
 @endsection

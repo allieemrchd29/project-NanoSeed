@@ -11,7 +11,7 @@ class KampanyeController extends Controller
     // Tampilkan semua data
     public function index()
     {
-        $kampanye = Kampanye::latest()->paginate(10);
+        $kampanye = Kampanye::latest()->get();
         return view('admin.kampanye.index', compact('kampanye'));
     }
 

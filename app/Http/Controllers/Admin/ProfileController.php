@@ -30,7 +30,8 @@ class ProfileController extends Controller
         if ($request->hasFile('profile')) {
             // Kalau sebelumnya udah punya foto, foto lama bakal kehapus
             if ($admin->profile) {
-                Storage::disk('public')->delete($admin->profile);            }
+                Storage::disk('public')->delete($admin->profile);            
+                }
             // Simpan foto baru ke folder 'profil' 
             $path = $request->file('profile')->store('profiles', 'public');
             $admin->profile = $path; 
@@ -52,6 +53,6 @@ class ProfileController extends Controller
         auth('admin')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+        return redirect()->route('admin.login');
     }
 }
