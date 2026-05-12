@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SearchController;
 use App\Http\Controllers\Admin\DampakController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\DonaturController;
+use App\Http\Controllers\Admin\DashboardController;
 
 
 //redirect ke halaman login
@@ -69,6 +70,8 @@ Route::prefix('admin')->name('admin.')->group(function (){
     // Route::post('/admin/donasi', [DonationController::class, 'store'])->name('admin.donasi.store');
     // Route untuk Donatur kirim form
     Route::post('/donatur/donasi/simpan', [DonationController::class, 'store'])->name('donatur.donasi.store');
+    //Route manggil dahsboard admin
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // Dampak
     Route::get('/donatur/dampak', function () {
