@@ -42,11 +42,14 @@
                             <div class="card-body p-4">
                                 {{-- Bagian Upload Foto --}}
                                 <div class="text-center mb-4">
-                                    <div class="avatar avatar-xl mb-3" style="background-image: url('{{ auth('admin')->user()->profile ? asset('storage/' . auth('admin')->user()->profile) : asset('img/default-avatar.png') }}')"></div>
+                                    <div class="avatar avatar-xl mb-3" 
+                                        id="preview-avatar" 
+                                        style="background-image: url('{{ auth('admin')->user()->profile ? asset('storage/' . auth('admin')->user()->profile) : asset('img/default-avatar.png') }}')">
+                                    </div>                                    
                                     <br>
                                     <label class="btn-center btn btn-outline-success btn-sm">
                                         Ganti Foto
-                                        <input type="file" name="profile" class="d-none">
+                                        <input type="file" name="profile" class="d-none" accept="image/*" onchange="previewImage(event)">
                                     </label>
                                     <small class="d-block text-muted mt-2">Maksimal 2MB, format JPG/PNG</small>
                                 </div>
@@ -77,7 +80,8 @@
 
                             {{-- Footer Tombol --}}
                             <div class="card-footer d-flex justify-content-end bg-light">
-                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary">Kembali</a>                                <button type="submit" class="btn btn-success px-4">
+                            <a href="{{ route('admin.dashboard') }}" class="btn btn-secondary m-2">Kembali</a>
+                                    <button type="submit" class="btn btn-success px-4 m-2">
                                     <i class="ti ti-device-floppy me-2"></i> Simpan Perubahan
                                 </button>
                             </div>
@@ -104,13 +108,12 @@
 <script>
 function previewImage(event) {
     const file = event.target.files[0];
-    const preview = document.getElementById('preview');
+    const preview = document.getElementById('preview-avatar');
     
     if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            preview.src = e.target.result;
-            preview.style.borderColor = '#0d6efd';
+            preview.style.backgroundImage = `url('${e.target.result}')`;
         }
         reader.readAsDataURL(file);
     }

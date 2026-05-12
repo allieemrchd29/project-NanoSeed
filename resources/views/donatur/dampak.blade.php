@@ -1,30 +1,14 @@
 @extends('components.layout-donatur')
 
 @section('content')
-    @include('components.navbar-donatur')
 
-    <div class="page-wrapper">
-        <div class="container-xl py-5">
-            {{-- Header --}}
-            <div class="text-center mb-5">
-                <h2 class="display-6 text-success fw-bold">Dampak Ekologi NanoSeed</h2>
-                <p class="text-muted mx-auto" style="max-width: 600px;">
-                    Kontribusi nyata dari setiap pohon yang Anda tanam untuk keberlangsungan ekosistem dan penghijauan bumi.
-                </p>
-            </div>
+@include('components.navbar-donatur')
 
 <div class="page-wrapper">
     <div class="container-xl py-5">
         {{-- Header --}}
         <div class="text-center mb-5">
-             <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <h2 class="fw-bold mb-0">Dampak Ekologi NanoSeed
-                </div>
-                <a href="{{ route('donatur.dashboard') }}" class="btn btn-outline-secondary">
-                    <i class="ti ti-arrow-left me-1"></i> Kembali
-                </a>
-            </div>
+            <h2 class="display-6 text-success fw-bold">Dampak Ekologi NanoSeed</h2>
             <p class="text-muted mx-auto" style="max-width: 600px;">
                 Kontribusi nyata dari setiap pohon yang Anda tanam untuk keberlangsungan ekosistem dan penghijauan bumi.
             </p>
@@ -41,23 +25,30 @@
                                     <i class="fas {{ $d->icon ?? 'fa-seedling' }} fs-1"></i>
                                 </span>
                             </div>
-                        </div>
-                    </div>
-
-                    {{-- blm ada data --}}
-                @empty
-                    <div class="col-12 text-center py-5">
-                        <div class="empty">
-                            <div class="empty-icon text-muted">
-                                <i class="ti ti-ghost fs-1"></i>
-                            </div>
-                            <p class="empty-title">Belum ada data</p>
-                            <p class="empty-subtitle text-muted">Data dampak akan muncul setelah Admin mengisi informasi.
+                            
+                            {{-- Judul --}}
+                            <h3 class="card-title h2 mb-3">{{ $d->judul }}</h3>
+                            {{-- Deskripsi --}}
+                            <p class="text-secondary mb-0" style="line-height: 1.6;">
+                                {{ $d->deskripsi }}
                             </p>
                         </div>
                     </div>
-                @endforelse
-            </div>
+                </div>
+            
+                {{-- blm ada data --}}
+                @empty
+                <div class="col-12 text-center py-5">
+                    <div class="empty">
+                        <div class="empty-icon text-muted">
+                            <i class="ti ti-ghost fs-1"></i>
+                        </div>
+                        <p class="empty-title">Belum ada data</p>
+                        <p class="empty-subtitle text-muted">Data dampak akan muncul setelah Admin mengisi informasi.</p>
+                    </div>
+                </div>
+            @endforelse
         </div>
     </div>
+</div>
 @endsection

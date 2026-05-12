@@ -42,7 +42,10 @@ class ProfileController extends Controller
         }
 
         $admin->save();
-        return back()->with('success', 'Profil berhasil diperbarui!');
+        // Refresh session supaya foto profil langsung update
+        auth('admin')->setUser($admin->fresh());
+
+        return back()->with('success', 'Profil berhasil diperbarui!');        
     }
     public function logout(Request $request)
     {
