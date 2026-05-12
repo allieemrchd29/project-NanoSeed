@@ -13,19 +13,15 @@
                 </a>
             </div>
 
-            @if (session('success'))
-                <div class="alert alert-success alert-dismissible">
-                    {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
-            @endif
-
             <div class="card">
-                <div class="table-responsive">
-                    <table class="table table-vcenter table-bordered card-table">
-                        <thead>
+                <div class="card-header">
+                    <div class="text-success fw-bold">Daftar Dokumentasi Kegiatan</div>
+                </div>
+                <div class="card-body">
+                    <table id="tabel-dokumentasi" class="table table-bordered table-hover align-middle w-100">
+                        <thead class="table-light">
                             <tr>
-                                <th>No</th>
+                                <th>#</th>
                                 <th>Kampanye</th>
                                 <th>Foto</th>
                                 <th>Keterangan</th>
@@ -34,9 +30,9 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($dokumentasi as $i => $item)
+                            @foreach ($dokumentasi as $i => $item)
                                 <tr>
-                                    <td>{{ $dokumentasi->firstItem() + $i }}</td>
+                                    <td>{{ $i + 1 }}</td>
                                     <td>{{ $item->kampanye->nama_kampanye ?? '-' }}</td>
                                     <td>
                                         @if ($item->fotos->count() > 0)
@@ -51,8 +47,9 @@
                                         @endif
                                     </td>
                                     <td>{{ $item->keterangan }}</td>
-                                    <td>{{ $item->tanggal_dokumentasi }}</td>
-                                    <td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d F Y, H:i') }}
+                                        WIB</td>
+                                    <td style="white-space:nowrap;">
                                         <a href="{{ route('admin.dokumentasi.edit', $item->id_dokumentasi) }}"
                                             class="btn btn-sm btn-warning me-1">Edit</a>
 
@@ -64,39 +61,17 @@
                                         </form>
 
                                         <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete({{ $item->id_dokumentasi }}, '{{ $item->kampanye->nama_kampanye ?? $item->keterangan }}')">
+                                            onclick="confirmDelete({{ $item->id_dokumentasi }}, '{{ $item->keterangan }}')">
                                             Hapus
                                         </button>
                                     </td>
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6" class="text-center text-muted py-4">Belum ada data dokumentasi.</td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-                    {{ $dokumentasi->links() }}
-                </div>
             </div>
 
-        </div>
-    </div>
-
-    <div class="modal modal-blur fade" id="modal-hapus" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="modal-title fw-bold">Konfirmasi Hapus</div>
-                    <div id="modal-hapus-text" class="text-muted mt-1"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary w-50" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-danger w-50" id="btn-confirm-delete">Ya, Hapus</button>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -113,10 +88,29 @@
             });
         @endif
 
-        let deleteFormId = null;
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#tabel-dokumentasi').DataTable({
+                language: {
+                    search: "Cari:",
+                    lengthMenu: "_MENU_ entri per halaman",
+                    info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                    infoEmpty: "Tidak ada data",
+                    zeroRecords: "Data tidak ditemukan",
+                    paginate: {
+                        first: "«",
+                        last: "»",
+                        next: "›",
+                        previous: "‹"
+                    }
+                },
+                columnDefs: [{
+                    orderable: false,
+                    targets: [2, 5]
+                }]
+            });
+        });
 
         function confirmDelete(id, keterangan) {
-            deleteFormId = id;
             Swal.fire({
                 title: 'Hapus Dokumentasi?',
                 text: 'Apakah kamu yakin ingin menghapus dokumentasi "' + keterangan + '"?',

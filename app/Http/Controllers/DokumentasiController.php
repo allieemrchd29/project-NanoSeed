@@ -12,7 +12,7 @@ class DokumentasiController extends Controller
 {
     public function index()
     {
-        $dokumentasi = Dokumentasi::with('kampanye', 'fotos')->latest()->paginate(10);
+        $dokumentasi = Dokumentasi::with('kampanye', 'fotos')->latest()->get();
         return view('admin.dokumentasi.index', compact('dokumentasi'));
     }
 
