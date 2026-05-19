@@ -90,13 +90,18 @@
 
                     <!-- Tombol Logout -->
                     <div class="text-end">
-                        <form action="{{ route('admin.logout') }}" method="POST" class="d-inline">
+                        <button type="button" id="btn-logout-admin" class="btn btn-danger">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout me-2" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
+                            Logout
+                        </button>
+
+                        <form id="form-logout-admin" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                             @csrf
-                            <button type="submit" class="btn btn-danger" 
-                                    onclick="return confirm('Apakah Anda yakin ingin logout?')">
-                                <i class="fas fa-sign-out-alt me-1"></i>
-                                Logout
-                            </button>
                         </form>
                     </div>
                 </div>
@@ -104,6 +109,34 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const btnLogout = document.getElementById('btn-logout-admin');
+        
+        if (btnLogout) {
+            btnLogout.addEventListener('click', function() {
+                Swal.fire({
+                    title: 'Apakah Anda yakin ingin logout?',
+                    text: "Anda harus login kembali untuk mengakses dashboard.",
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#28a745', // Warna hijau biar senada sama tema NanoSeed lu
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Logout!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-logout-admin').submit(); // Eksekusi logout asli
+                    }
+                });
+            });
+        }
+    });
+</script>
+@endpush
 
 <script>
 function previewImage(event) {
