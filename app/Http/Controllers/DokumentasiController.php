@@ -41,7 +41,7 @@ class DokumentasiController extends Controller
             foreach ($request->file('fotos') as $foto) {
                 $path = $foto->store('dokumentasi', 'public');
                 FotoDokumentasi::create([
-                    'id_dokumentasi' => $dokumentasi->id_dokumentasi,
+                    'id_dokumentasi' => $dokumentasi->_id,
                     'foto'           => $path,
                 ]);
             }
@@ -78,7 +78,7 @@ class DokumentasiController extends Controller
             foreach ($request->file('fotos') as $foto) {
                 $path = $foto->store('dokumentasi', 'public');
                 FotoDokumentasi::create([
-                    'id_dokumentasi' => $dokumentasi->id_dokumentasi,
+                    'id_dokumentasi' => $dokumentasi->_id,
                     'foto'           => $path,
                 ]);
             }

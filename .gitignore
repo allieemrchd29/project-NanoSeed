@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+/mongodb-installer.msi
+/mongodb_driver.zip
+/mongodb_driver_latest.zip
+/mongodb_extract/

@@ -9,9 +9,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donasis', function (Blueprint $table) {
-            $table->string('order_id')->nullable()->unique()->after('nomor_telepon');
-            $table->string('snap_token')->nullable()->after('order_id');
-            $table->string('status')->default('pending')->after('snap_token');
+            $table->string('order_id')->nullable()->unique();
+            $table->string('snap_token')->nullable();
+            $table->string('status')->default('pending');
             // status: pending | success | failed
         });
     }

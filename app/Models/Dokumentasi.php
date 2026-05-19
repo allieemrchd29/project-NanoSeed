@@ -2,28 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Dokumentasi extends Model
 {
+    protected $connection = 'mongodb';
     protected $table = 'dokumentasi';
-    protected $primaryKey = 'id_dokumentasi';
+    protected $primaryKey = '_id'; 
 
     protected $fillable = [
         'id_kampanye',
-        'foto_dokumentasi',
         'keterangan',
         'tanggal_dokumentasi',
     ];
 
-    // Relasi ke Kampanye
+    /**
+     * Relasi ke Model Kampanye
+     */
     public function kampanye()
     {
-        return $this->belongsTo(Kampanye::class, 'id_kampanye', 'id');
+        return $this->belongsTo(Kampanye::class, 'id_kampanye', '_id');
     }
 
+    /**
+     * Relasi ke Model FotoDokumentasi
+     */
     public function fotos()
     {
-        return $this->hasMany(FotoDokumentasi::class, 'id_dokumentasi', 'id_dokumentasi');
+        return $this->hasMany(FotoDokumentasi::class, 'id_dokumentasi', '_id');
     }
 }

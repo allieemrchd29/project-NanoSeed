@@ -6,21 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
-        Schema::create('foto_dokumentasi', function (Blueprint $table) {
+        Schema::create('admin_notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('id_dokumentasi')->index();
-            $table->string('foto');
+            $table->string('nama_donatur');
+            $table->decimal('jumlah_donasi', 15, 2);
+            $table->string('donasi_id')->index();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('foto_dokumentasi');
+        Schema::dropIfExists('admin_notifications');
     }
 };

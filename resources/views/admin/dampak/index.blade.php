@@ -36,26 +36,26 @@
                                         <span
                                             class="d-inline-flex align-items-center justify-content-center bg-success rounded-circle text-white"
                                             style="width:38px; height:38px;">
-                                            {{-- pakai fas jika default --}}
                                             <i class="fas {{ $dampak->icon ?? 'fa-info-circle' }}"></i>
                                         </span>
                                     </td>
                                     <td><strong>{{ $dampak->judul }}</strong></td>
                                     <td>{{ Str::limit($dampak->deskripsi, 80) }}</td>
                                     <td>
-                                        <a href="{{ route('admin.dampak.edit', $dampak) }}"
+                                        <a href="{{ route('admin.dampak.edit', $dampak->_id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
 
-                                        <form id="delete-form-{{ $dampak->id }}"
-                                            action="{{ route('admin.dampak.destroy', $dampak->id) }}" method="POST"
+                                        {{-- 💎 1. PERBAIKAN: Gunakan _id untuk form --}}
+                                        <form id="delete-form-{{ $dampak->_id }}"
+                                            action="{{ route('admin.dampak.destroy', $dampak->_id) }}" method="POST"
                                             class="d-inline">
                                             @csrf
                                             @method('DELETE')
                                         </form>
 
-                                        {{-- Tombol trigger modal --}}
+                                        {{-- 💎 2. PERBAIKAN: Tambahkan tanda petik tunggal ('') pada parameter ID dan gunakan _id --}}
                                         <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete({{ $dampak->id }}, '{{ $dampak->judul }}')">
+                                            onclick="confirmDelete('{{ $dampak->_id }}', '{{ addslashes($dampak->judul) }}')">
                                             Hapus
                                         </button>
                                     </td>
@@ -73,6 +73,9 @@
             </div>
         </div>
     </div>
+
+    {{-- CDN SweetAlert2 memastikan library ter-load --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))
@@ -94,7 +97,9 @@
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!'
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
                     document.getElementById('delete-form-' + id).submit();

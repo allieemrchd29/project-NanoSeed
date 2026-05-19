@@ -95,8 +95,7 @@
                                                 </td>
                                                 <td class="text-center">
                                                     <form action="{{ route('admin.donasi.destroy', $data->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Hapus permanen data ini?')">
+                                                        method="POST" class="delete-donasi-form">
                                                         @csrf @method('DELETE')
                                                         <button type="submit" class="btn btn-ghost-danger btn-sm btn-icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" class="icon"
@@ -193,6 +192,37 @@
                 });
 
                 setInterval(refreshTable, 10000);
+
+                $(document).on('submit', '.delete-donasi-form', function(event) {
+                    event.preventDefault();
+                    const form = this;
+
+                    Swal.fire({
+                        title: 'Hapus data donasi?',
+                        text: 'Data ini akan dihapus permanen.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Batal',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: @json(session('success')),
+                        timer: 2500,
+                        showConfirmButton: false,
+                        position: 'top-end',
+                        toast: true
+                    });
+                @endif
             });
 
             function refreshTable() {
@@ -211,7 +241,7 @@
                                 badgeStatus(d.status),
                                 formatTanggal(d.created_at),
                                 `<div class="text-center">
-                            <form action="/admin/donasi/${d.id}" method="POST" onsubmit="return confirm('Hapus?')">
+                            <form action="/admin/donasi/${d.id}" method="POST" class="delete-donasi-form">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-ghost-danger btn-sm btn-icon">✕</button>

@@ -9,41 +9,48 @@ use Illuminate\Http\Request;
 class NotificationController extends Controller
 {
     /**
-     * halaman daftar semua notifikasi
+     * Halaman daftar semua notifikasi
      */
     public function index()
     {
-        $notifications = AdminNotification::latest()->paginate(15);
+        $notifications = AdminNotification::latest()->get(); 
         $unreadCount   = AdminNotification::unread()->count();
 
-        // Tandai semua sebagai sudah dibaca saat halaman dibuka
-        AdminNotification::unread()->update(['is_read' => true]);
+        // agar status " baru" tetap muncul sebelum tombol centang diklik.
 
         return view('admin.notifications.index', compact('notifications', 'unreadCount'));
     }
 
     /**
-     * tandai satu notifikasi sebagai sudah dibaca
+     * Tandai satu notifikasi sebagai sudah dibaca 
      */
     public function markRead($id)
     {
         AdminNotification::findOrFail($id)->update(['is_read' => true]);
 
-        return redirect()->back()->with('success', 'Notifikasi ditandai sudah dibaca.');
+        // Berikan respon JSON agar ditangkap oleh SweetAlert2 di Blade
+        return response()->json([
+            'success' => true,
+            'message' => 'Notifikasi ditandai sudah dibaca.'
+        ]);
     }
 
     /**
-     * tandai semua notifikasi sebagai sudah dibaca
+     * Tandai semua notifikasi sebagai sudah dibaca
      */
     public function markAllRead()
     {
         AdminNotification::unread()->update(['is_read' => true]);
 
-        return redirect()->back()->with('success', 'Semua notifikasi telah ditandai sebagai dibaca.');
+        // Berikan respon JSON agar ditangkap oleh SweetAlert2 di Blade
+        return response()->json([
+            'success' => true,
+            'message' => 'Semua notifikasi telah ditandai sebagai dibaca.'
+        ]);
     }
 
     /**
-     * hapus notifikasi
+     * Hapus notifikasi
      */
     public function destroy($id)
     {
@@ -76,7 +83,7 @@ class NotificationController extends Controller
                 'jumlah_donasi' => 'Rp ' . number_format($n->jumlah_donasi, 0, ',', '.'),
                 'is_read'       => $n->is_read,
                 'time'          => $n->created_at->diffForHumans(),
-                'read_url'      => route('admin.notifications.read', $n->id),
+                'read_url' => route('admin.notifications.read', $n->id),
             ]);
 
         return response()->json(['notifications' => $notifications]);

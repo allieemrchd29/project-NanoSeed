@@ -36,8 +36,11 @@
                                 @foreach ($kampanye as $i => $item)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
+                                        
                                         <td>{{ $item->nama_kampanye }}</td>
+                                        
                                         <td>{{ Str::limit($item->deskripsi, 60) }}</td>
+                                        
                                         <td>
                                             <span
                                                 class="badge
@@ -49,10 +52,13 @@
                                                 {{ ucfirst($item->status_kampanye) }}
                                             </span>
                                         </td>
+                                        
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d F Y') }}
                                         </td>
+                                        
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d F Y') }}
                                         </td>
+                                        
                                         <td>
                                             @if ($item->gambar_kampanye)
                                                 <img src="{{ asset('storage/' . $item->gambar_kampanye) }}" class="rounded"
@@ -61,19 +67,20 @@
                                                 <span class="text-muted fst-italic">Tidak ada</span>
                                             @endif
                                         </td>
+                                        
                                         <td style="white-space:nowrap;">
-                                            <a href="{{ route('admin.kampanye.edit', $item->id) }}"
+                                            <a href="{{ route('admin.kampanye.edit', $item->_id) }}"
                                                 class="btn btn-sm btn-warning me-1">Edit</a>
 
-                                            <form id="delete-form-{{ $item->id }}"
-                                                action="{{ route('admin.kampanye.destroy', $item->id) }}" method="POST"
+                                            <form id="delete-form-{{ $item->_id }}"
+                                                action="{{ route('admin.kampanye.destroy', $item->_id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
 
                                             <button type="button" class="btn btn-sm btn-danger"
-                                                onclick="confirmDelete({{ $item->id }}, '{{ $item->nama_kampanye }}')">
+                                                onclick="confirmDelete('{{ $item->_id }}', '{{ addslashes($item->nama_kampanye) }}')">
                                                 Hapus
                                             </button>
                                         </td>
@@ -87,6 +94,8 @@
 
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))
@@ -119,7 +128,7 @@
                 columnDefs: [{
                         orderable: false,
                         targets: [6, 7]
-                    } // kolom gambar & aksi tidak bisa di-sort
+                    }
                 ]
             });
         });
