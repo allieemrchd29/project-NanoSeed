@@ -58,6 +58,7 @@ class DonationController extends Controller
             'email_donatur' => 'required|email',
             'nomor_telepon' => 'required|string|max:20',
             'jumlah_donasi' => 'required|integer|min:10000',
+            'kampanye_id'   => 'nullable|exists:kampanye,id',
         ]);
 
         $orderId     = 'NANO-' . time() . '-' . rand(100, 999);
@@ -71,6 +72,7 @@ class DonationController extends Controller
             'jumlah_donasi' => $request->jumlah_donasi,
             'order_id'      => $orderId,
             'status'        => 'pending',
+            'kampanye_id'  => $request->kampanye_id, // Menyimpan kampanye_id jika ada
         ]);
 
         // Parameter untuk Midtrans Snap

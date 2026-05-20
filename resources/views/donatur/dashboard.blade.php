@@ -8,7 +8,108 @@
         section {
             scroll-margin-top: 80px;
         }
+
+        /* AOS */
+        @import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+
+        /* Card kampanye hover */
+        .card-stacked {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-stacked:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12) !important;
+        }
+
+        /* Zoom gambar kampanye */
+        .img-responsive {
+            transition: background-size 0.4s ease;
+            background-size: 100%;
+        }
+
+        .card-stacked:hover .img-responsive {
+            background-size: 110%;
+        }
+
+        /* Card dampak hover */
+        .card.p-4 {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card.p-4:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10) !important;
+        }
+
+        /* Button hover */
+        .btn-success {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(47, 179, 68, 0.35) !important;
+        }
+
+        /* Counter angka */
+        .stat-counter {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        /* Hero image */
+        .hero-img {
+            transition: transform 0.4s ease;
+        }
+
+        .hero-img:hover {
+            transform: scale(1.02);
+        }
     </style>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Init AOS
+        AOS.init({
+            duration: 600,
+            once: true,
+            easing: 'ease-out-cubic'
+        });
+
+        // Counter animasi
+        function animateCounter(el, target, suffix = '') {
+            let start = 0;
+            const duration = 1500;
+            const step = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    el.textContent = target % 1 !== 0 ? target.toFixed(1) + suffix : target + suffix;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(start) + suffix;
+                }
+            }, 16);
+        }
+
+        // Trigger counter pas section stats keliatan
+        const statsSection = document.querySelector('section.py-5[style*="linear-gradient"]');
+        if (statsSection) {
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    animateCounter(document.querySelectorAll('.h1')[0], 1200, '+');
+                    animateCounter(document.querySelectorAll('.h1')[1], 850, '');
+                    animateCounter(document.querySelectorAll('.h1')[2], 12, '');
+                    animateCounter(document.querySelectorAll('.h1')[3], 4.2, ' Ton');
+                    observer.disconnect();
+                }
+            }, {
+                threshold: 0.5
+            });
+            observer.observe(statsSection);
+        }
+    </script>
 @endpush
 @section('content')
     @include('components.navbar-donatur')
@@ -35,7 +136,7 @@
                             </div>
                         </div>
                         <div class="col-lg-6 text-center">
-                            <img src="{{ asset('assets/img/hero.jpg') }}" class="img-fluid rounded-4 shadow-lg"
+                            <img src="{{ asset('assets/img/hero.jpg') }}" class="img-fluid rounded-4 shadow-lg hero-img"
                                 alt="Nanoseed Action">
                         </div>
                     </div>
@@ -45,19 +146,19 @@
             <section class="py-5" style="background: linear-gradient(135deg, #beee83 0%, #80d459 100%);">
                 <div class="container-xl">
                     <div class="row row-cards text-center">
-                        <div class="col-6 col-sm-3">
+                        <div class="col-6 col-sm-3" data-aos="zoom-in" data-aos-delay="0">
                             <div class="h1 mb-0 fw-bold text-dark">1.2k+</div>
                             <div class="text-dark-light small">Pohon Ditanam</div>
                         </div>
-                        <div class="col-6 col-sm-3">
+                        <div class="col-6 col-sm-3" data-aos="zoom-in" data-aos-delay="0">
                             <div class="h1 mb-0 fw-bold text-dark">850</div>
                             <div class="text-dark-light small">Donatur Aktif</div>
                         </div>
-                        <div class="col-6 col-sm-3">
+                        <div class="col-6 col-sm-3" data-aos="zoom-in" data-aos-delay="0">
                             <div class="h1 mb-0 fw-bold text-dark">12</div>
                             <div class="text-dark-light small">Lokasi Hutan</div>
                         </div>
-                        <div class="col-6 col-sm-3">
+                        <div class="col-6 col-sm-3" data-aos="zoom-in" data-aos-delay="0">
                             <div class="h1 mb-0 fw-bold text-dark">4.2 Ton</div>
                             <div class="text-dark-light small">Oksigen Dihasilkan</div>
                         </div>
@@ -90,12 +191,11 @@
                                         </div>
                                         <div class="col-md-5">
                                             <div class="bg-success-lt rounded-4 p-4 text-center">
-                                                <img src="{{ asset('assets/img/monitoring.jpg') }}" alt="Monitoring" class="img-fluid rounded-3 shadow-sm" style="max-height: 200px; width: 100%; object-fit: cover;">
-                                                <div class="pt-4">
-                                                    <span class="badge rounded-pill bg-success text-white px-3 py-2 fs-4 fw-bold shadow-sm">
-                                                        <i class="ti ti-device-analytics me-2"></i> Terpantau Real-time
-                                                    </span>
-                                                </div>
+                                                <img src="{{ asset('assets/img/hero.avif') }}" alt="Monitoring"
+                                                    class="img-fluid rounded-3 shadow-sm" style="max-height: 200px;">
+                                                <p class="mt-3 mb-0 fw-medium text-success">
+                                                    <i class="ti ti-device-analytics me-1"></i> Terpantau Real-time
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
@@ -130,7 +230,8 @@
                     <div class="d-flex align-items-center mb-4">
                         <h2 class="mb-0 fw-bold">Kampanye Penanaman</h2>
                         <div class="ms-auto">
-                            <a href="{{ route('views.donatur.kampanye') }}" class="text-decoration-none fw-bold">Lihat Semua
+                            <a href="{{ route('views.donatur.kampanye') }}" class="text-decoration-none fw-bold">Lihat
+                                Semua
                                 Kampanye →</a>
                         </div>
                     </div>
@@ -138,7 +239,7 @@
 
                 <div class="row row-cards">
                     @forelse($kampanye as $item)
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                             <div class="card card-stacked shadow-sm h-100">
                                 <div class="card-img-top img-responsive img-responsive-21by9"
                                     style="background-image: url(
@@ -150,13 +251,28 @@
                                     <p class="text-muted">{{ Str::limit($item->deskripsi, 120) }}</p>
                                     <div class="mt-3">
                                         <div class="d-flex align-items-center text-muted small">
-                                                <span class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success text-white' : 'bg-secondary text-white' }} me-2">
-                                                    {{ ucfirst($item->status_kampanye) }}
-                                                </span>                                            
+                                            <span
+                                                class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success' : 'bg-secondary' }} me-2">
+                                                {{ ucfirst($item->status_kampanye) }}
+                                            </span>
                                             <div class="ms-auto">
                                                 Selesai:
                                                 {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
                                             </div>
+                                        </div>
+                                        {{-- countdown --}}
+                                        @php
+                                            $sisaHari = (int) \Carbon\Carbon::now()->diffInDays(
+                                                \Carbon\Carbon::parse($item->tanggal_selesai),
+                                                false,
+                                            );
+                                        @endphp
+                                        <div class="mt-2 d-flex align-items-center gap-2"
+                                            style="background:#fff8e1; border-left: 3px solid #f59e0b; border-radius:6px; padding: 6px 10px;">
+                                            <i class="ti ti-clock text-warning" style="font-size:14px;"></i>
+                                            <span class="small fw-semibold text-warning">
+                                                {{ $sisaHari > 0 ? $sisaHari . ' hari lagi' : 'Kampanye berakhir' }}
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -193,7 +309,7 @@
                     </div>
                     <div class="row g-4">
                         @forelse($dampak as $d)
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                                 <div class="card p-4 border-0 shadow-sm h-100">
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="avatar avatar-md bg-success-lt rounded-circle text-success me-3">
@@ -223,7 +339,7 @@
                     <div class="row g-3">
                         @forelse($dokumentasi as $item)
                             @foreach ($item->fotos->take(1) as $foto)
-                                <div class="col-md-4">
+                                <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                                     <a href="{{ route('views.donatur.dokumentasi.detail', $item->id_dokumentasi) }}">
                                         <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
                                             style="background-image: url({{ asset('storage/' . $foto->foto) }})">
@@ -259,7 +375,7 @@
                     </div>
                     <div class="row g-4">
                         @forelse($dampaks as $d)
-                            <div class="col-md-6">
+                            <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                                 <div class="card p-4 border-0 shadow-sm h-100">
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="avatar avatar-md bg-success-lt rounded-circle text-success me-3">
@@ -295,7 +411,8 @@
                         @forelse($dokumentasiDashboard as $item)
                             @foreach ($item->fotos->take(1) as $foto)
                                 <div class="col-md-4">
-                                            <a href="{{ route('views.donatur.dokumentasi.detail', $item->_id) }}">                                        <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
+                                    <a href="{{ route('views.donatur.dokumentasi.detail', $item->id_dokumentasi) }}">
+                                        <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
                                             style="background-image: url({{ asset('storage/' . $foto->foto) }})">
                                         </div>
                                         @if ($item->keterangan)
