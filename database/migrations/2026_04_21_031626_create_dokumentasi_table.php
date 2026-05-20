@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('dokumentasi', function (Blueprint $table) {
             $table->id('id_dokumentasi');
-            $table->foreignId('id_kampanye')->constrained('kampanye', 'id')->onDelete('cascade');
+            $table->string('id_kampanye')->index();
             $table->string('foto_dokumentasi')->nullable();
             $table->string('keterangan')->nullable();
             $table->datetime('tanggal_dokumentasi');

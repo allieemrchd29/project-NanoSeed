@@ -22,69 +22,52 @@
                         <table id="tabel-dampak" class="table table-bordered table-hover align-middle w-100">
                             <thead class="table-light">
                                 <tr>
-                                    <th>#</th>
-                                    <th>Nama Dampak</th>
-                                    <th>Deskripsi</th>
-                                    {{-- <th>Status</th> --}}
-                                    <th>Tanggal Mulai</th>
-                                    <th>Tanggal Selesai</th>
-                                    <th>Icon</th>
-                                    <th>Aksi</th>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td class="text-center">
+                                        <span
+                                            class="d-inline-flex align-items-center justify-content-center bg-success rounded-circle text-white"
+                                            style="width:38px; height:38px;">
+                                            <i class="fas {{ $dampak->icon ?? 'fa-info-circle' }}"></i>
+                                        </span>
+                                    </td>
+                                    <td><strong>{{ $dampak->judul }}</strong></td>
+                                    <td>{{ Str::limit($dampak->deskripsi, 80) }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.dampak.edit', $dampak->_id) }}"
+                                            class="btn btn-warning btn-sm">Edit</a>
+
+                                        {{-- 💎 1. PERBAIKAN: Gunakan _id untuk form --}}
+                                        <form id="delete-form-{{ $dampak->_id }}"
+                                            action="{{ route('admin.dampak.destroy', $dampak->_id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+
+                                        {{-- 💎 2. PERBAIKAN: Tambahkan tanda petik tunggal ('') pada parameter ID dan gunakan _id --}}
+                                        <button type="button" class="btn btn-sm btn-danger"
+                                            onclick="confirmDelete('{{ $dampak->_id }}', '{{ addslashes($dampak->judul) }}')">
+                                            Hapus
+                                        </button>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($dampaks as $i => $item)
-                                    <tr>
-                                        <td>{{ $i + 1 }}</td>
-                                        <td>{{ $item->judul}}</td>
-                                        <td>{{ Str::limit($item->deskripsi, 60) }}</td>
-                                        {{-- <td>
-                                            <span
-                                                class="badge
-                                            {{ $item->status_dampak === 'aktif'
-                                                ? 'bg-success text-white'
-                                                : ($item->status_dampak === 'selesai'
-                                                    ? 'bg-secondary text-white'
-                                                    : 'bg-danger text-white') }}">
-                                                {{ ucfirst($item->status_dampak) }}
-                                            </span>
-                                        </td> --}}
-                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_mulai)->translatedFormat('d F Y') }}
-                                        </td>
-                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_selesai)->translatedFormat('d F Y') }}
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="d-inline-flex align-items-center justify-content-center bg-green-lt text-green rounded-circle" 
-                                                style="width:35px; height:35px;">
-                                                <i class="fas {{ $item->icon ?? 'fa-tree' }}"></i>
-                                            </span>
-                                        </td>
-                                        <td style="white-space:nowrap;">
-                                            <a href="{{ route('admin.dampak.edit', $item->id) }}"
-                                                class="btn btn-sm btn-warning me-1">Edit</a>
-
-                                            <form id="delete-form-{{ $item->id }}"
-                                                action="{{ route('admin.dampak.destroy', $item->id) }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-
-                                            <button type="button" class="btn btn-sm btn-danger"
-                                                onclick="confirmDelete({{ $item->id }}, '{{ $item->nama_dampak }}')">
-                                                Hapus
-                                            </button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center text-muted py-4">
+                                        Belum ada data dampak.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
         </div>
     </div>
+
+    {{-- CDN SweetAlert2 memastikan library ter-load --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))

@@ -41,7 +41,7 @@
                 </tr>
                 <tr>
                   <td class="text-muted">Status</td>
-                  <td><span class="badge bg-success">Lunas</span></td>
+                  <td><span class="badge bg-success text-white">Lunas</span></td>                
                 </tr>
               </table>
             </div>

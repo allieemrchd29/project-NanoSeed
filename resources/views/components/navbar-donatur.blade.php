@@ -11,20 +11,6 @@
                 <span class="ms-2 fw-bold text-dark">NanoSeed</span>
             </a>
         </h1>
-
-        <div class="navbar-nav flex-row order-md-last">
-            <div class="nav-item">
-                <a href="#" class="nav-link px-2 text-muted">
-                    <i class="ti ti-bell icon"></i>
-                </a>
-            </div>
-        </div>
-                <div class="navbar-expand-md">
-            <div class="collapse navbar-collapse" id="navbar-menu">
-                <div class="navbar navbar-light">
-                    <div class="container-xl">
-                        <ul class="navbar-nav">
-
         <div class="collapse navbar-collapse" id="navbar-menu-donatur">
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
@@ -36,41 +22,45 @@
                             <span class="nav-link-title">Dashboard</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('donatur.aboutus') ? 'active' : '' }}">
-                        <a class="nav-link" href="#aboutus">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('donatur.aboutus') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-users icon"></i>
                             </span>
                             <span class="nav-link-title">About Us</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('donatur.kampanye') || request()->is('donatur/kampanye*') ? 'active' : '' }}">
-                        <a class="nav-link" href="kampanye">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('views.donatur.kampanye') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-sparkles icon"></i>
                             </span>
                             <span class="nav-link-title">Kampanye</span>
                         </a>
                     </li>
-                   
-                    <li class="nav-item {{ request()->routeIs('donatur.donasi') || request()->is('donatur/donasi*') ? 'active' : '' }}">
-                        <a class="nav-link" href="donatur/donasi">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-seeding icon"></i>
                             </span>
                             <span class="nav-link-title">Donasi</span>
                         </a>
                     </li>
-                        <li class="nav-item {{ request()->routeIs('donatur.dampak') || request()->is('donatur/dampak*') ? 'active' : '' }}">
-                        <a class="nav-link" href="#dampak">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('views.donatur.dampak') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-seeding icon"></i>
                             </span>
                             <span class="nav-link-title">Dampak</span>
                         </a>
                     </li>
-                    <li class="nav-item {{ request()->routeIs('donatur.dokumentasi') || request()->is('donatur/dokumentasi*') ? 'active' : '' }}">
-                        <a class="nav-link" href="dokumentasi">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('views.donatur.dokumentasi') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-file-text icon"></i>
                             </span>
@@ -78,7 +68,6 @@
                         </a>
                     </li>
 
-                    <!-- fitur search -->
                     <li class="nav-item d-flex align-items-center" style="margin-left: 15px;">
                         <form action="{{ route('donatur.dashboard') }}" method="GET" class="m-0">
                             <div class="input-group"
@@ -86,7 +75,7 @@
                                 <input type="text" name="keyword" class="form-control border-0 px-3"
                                     placeholder="Cari kebaikan 🌱..." value="{{ request('keyword') }}"
                                     style="background-color: #f2fdf5; font-size: 0.9rem; outline: none; box-shadow: none; min-width: 330px;">
-                                <!-- tombol bersihkan pencarian -->
+                                
                                 @if (request('keyword'))
                                     <a href="{{ url('/') }}" class="btn border-0 d-flex align-items-center px-2"
                                         style="background-color: #f2fdf5; color: #dc3545; text-decoration: none;"

@@ -34,11 +34,9 @@
                                 <p class="text-muted">{{ Str::limit($item->deskripsi, 120) }}</p>
                                 <div class="mt-3">
                                     <div class="d-flex align-items-center text-muted small">
-                                        <span
-                                            class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success' : 'bg-secondary' }} me-2">
-                                            {{ ucfirst($item->status_kampanye) }}
-                                        </span>
-                                        <div class="ms-auto">
+                                            <span class="badge {{ strtolower($item->status_kampanye) === 'aktif' ? 'bg-success' : 'bg-secondary' }} text-white me-2">
+                                                {{ ucfirst($item->status_kampanye) }}
+                                            </span>                                        <div class="ms-auto">
                                             Selesai: {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
                                         </div>
                                     </div>

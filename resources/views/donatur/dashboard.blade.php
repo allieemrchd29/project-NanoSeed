@@ -90,11 +90,12 @@
                                         </div>
                                         <div class="col-md-5">
                                             <div class="bg-success-lt rounded-4 p-4 text-center">
-                                                <img src="{{ asset('assets/img/monitoring-preview.png') }}" alt="Monitoring"
-                                                    class="img-fluid rounded-3 shadow-sm" style="max-height: 200px;">
-                                                <p class="mt-3 mb-0 fw-medium text-success">
-                                                    <i class="ti ti-device-analytics me-1"></i> Terpantau Real-time
-                                                </p>
+                                                <img src="{{ asset('assets/img/monitoring.jpg') }}" alt="Monitoring" class="img-fluid rounded-3 shadow-sm" style="max-height: 200px; width: 100%; object-fit: cover;">
+                                                <div class="pt-4">
+                                                    <span class="badge rounded-pill bg-success text-white px-3 py-2 fs-4 fw-bold shadow-sm">
+                                                        <i class="ti ti-device-analytics me-2"></i> Terpantau Real-time
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -149,10 +150,9 @@
                                     <p class="text-muted">{{ Str::limit($item->deskripsi, 120) }}</p>
                                     <div class="mt-3">
                                         <div class="d-flex align-items-center text-muted small">
-                                            <span
-                                                class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success' : 'bg-secondary' }} me-2">
-                                                {{ ucfirst($item->status_kampanye) }}
-                                            </span>
+                                                <span class="badge {{ $item->status_kampanye === 'aktif' ? 'bg-success text-white' : 'bg-secondary text-white' }} me-2">
+                                                    {{ ucfirst($item->status_kampanye) }}
+                                                </span>                                            
                                             <div class="ms-auto">
                                                 Selesai:
                                                 {{ \Carbon\Carbon::parse($item->tanggal_selesai)->format('d M Y') }}
@@ -295,8 +295,7 @@
                         @forelse($dokumentasiDashboard as $item)
                             @foreach ($item->fotos->take(1) as $foto)
                                 <div class="col-md-4">
-                                    <a href="{{ route('views.donatur.dokumentasi.detail', $item->id_dokumentasi) }}">
-                                        <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
+                                            <a href="{{ route('views.donatur.dokumentasi.detail', $item->_id) }}">                                        <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
                                             style="background-image: url({{ asset('storage/' . $foto->foto) }})">
                                         </div>
                                         @if ($item->keterangan)

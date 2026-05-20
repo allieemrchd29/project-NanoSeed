@@ -35,7 +35,8 @@
                                     <td>{{ $i + 1 }}</td>
                                     <td>{{ $item->kampanye->nama_kampanye ?? '-' }}</td>
                                     <td>
-                                        @if ($item->fotos->count() > 0)
+                                        {{-- Cek apakah relasi fotos ada isi datanya --}}
+                                        @if ($item->fotos && $item->fotos->count() > 0)
                                             <div class="d-flex flex-wrap gap-1">
                                                 @foreach ($item->fotos as $foto)
                                                     <img src="{{ asset('storage/' . $foto->foto) }}" class="rounded"
@@ -44,26 +45,27 @@
                                             </div>
                                         @else
                                             <span class="text-muted fst-italic">Tidak ada</span>
+                                            <div style="font-size: 10px; color: red;">(Data di DB: {{ $item->fotos->count() }})</div>
                                         @endif
                                     </td>
                                     <td>{{ $item->keterangan }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d F Y, H:i') }}
-                                        WIB</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->tanggal_dokumentasi)->translatedFormat('d F Y, H:i') }} WIB</td>
                                     <td style="white-space:nowrap;">
-                                        <a href="{{ route('admin.dokumentasi.edit', $item->id_dokumentasi) }}"
-                                            class="btn btn-sm btn-warning me-1">Edit</a>
+                                        <a href="{{ route('admin.dokumentasi.edit', $item->_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                                        
+                                        {{-- 💎 1. PERBAIKAN: Tombol memanggil fungsi dengan parameter MongoDB _id & Keterangan --}}
+                                        <button type="button" class="btn btn-sm btn-danger" 
+                                            onclick="confirmDelete('{{ $item->_id }}', '{{ addslashes($item->keterangan) }}')">
+                                            Hapus
+                                        </button>
 
-                                        <form id="delete-form-{{ $item->id_dokumentasi }}"
-                                            action="{{ route('admin.dokumentasi.destroy', $item->id_dokumentasi) }}"
-                                            method="POST" class="d-inline">
+                                        {{-- 💎 2. PERBAIKAN: Menyediakan Form Hidden untuk eksekusi hapus data --}}
+                                        <form id="delete-form-{{ $item->_id }}" 
+                                            action="{{ route('admin.dokumentasi.destroy', $item->_id) }}" 
+                                            method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-
-                                        <button type="button" class="btn btn-sm btn-danger"
-                                            onclick="confirmDelete({{ $item->id_dokumentasi }}, '{{ $item->keterangan }}')">
-                                            Hapus
-                                        </button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,6 +76,9 @@
 
         </div>
     </div>
+
+    {{-- Pastikan SweetAlert2 ter-load sempurna --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))
@@ -110,6 +115,7 @@
             });
         });
 
+        // 💎 3. PERBAIKAN: Fungsi diletakkan secara global (di luar DOMContentLoaded) agar tombol onclick bisa menjangkau
         function confirmDelete(id, keterangan) {
             Swal.fire({
                 title: 'Hapus Dokumentasi?',

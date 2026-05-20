@@ -24,9 +24,7 @@
             <div class="row g-4">
                 @forelse($dokumentasi as $item)
                     <div class="col-md-6 col-lg-4">
-                        <a href="{{ route('views.donatur.dokumentasi.detail', $item->id_dokumentasi) }}"
-                            class="text-decoration-none">
-                            <div class="card shadow-sm h-100 border-0 rounded-4 overflow-hidden">
+                            <a href="{{ route('views.donatur.dokumentasi.detail', $item) }}" class="text-decoration-none">
                                 {{-- Foto thumbnail --}}
                                 @if ($item->fotos->count() > 0)
                                     <div class="img-responsive img-responsive-21by9"

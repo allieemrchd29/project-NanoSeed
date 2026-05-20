@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
        Schema::table('dampaks', function (Blueprint $table) {
-        $table->string('icon')->default('fa-leaf')->after('judul');
-    });
+            $table->string('icon')->default('fa-leaf');
+        });
     }
 
     /**
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('dampaks', function (Blueprint $table) {
-            //
+            $table->dropColumn('icon');
         });
     }
 };

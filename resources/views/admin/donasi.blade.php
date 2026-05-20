@@ -94,11 +94,13 @@
                                                     {{ $data->created_at->translatedFormat('d M Y, H:i') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('admin.donasi.destroy', $data->id) }}" method="POST" class="d-inline form-hapus">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-ghost-danger btn-sm btn-icon btn-hapus" title="Hapus Data">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
+                                                    <form action="{{ route('admin.donasi.destroy', $data->id) }}"
+                                                        method="POST" class="delete-donasi-form">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-ghost-danger btn-sm btn-icon">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon"
+                                                                width="24" height="24" viewBox="0 0 24 24"
+                                                                stroke-width="2" stroke="currentColor" fill="none">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M4 7l16 0" />
                                                                 <path d="M10 11l0 6" />
@@ -220,6 +222,37 @@
                 });
 
                 setInterval(refreshTable, 10000);
+
+                $(document).on('submit', '.delete-donasi-form', function(event) {
+                    event.preventDefault();
+                    const form = this;
+
+                    Swal.fire({
+                        title: 'Hapus data donasi?',
+                        text: 'Data ini akan dihapus permanen.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Batal',
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+
+                @if (session('success'))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil',
+                        text: @json(session('success')),
+                        timer: 2500,
+                        showConfirmButton: false,
+                        position: 'top-end',
+                        toast: true
+                    });
+                @endif
             });
 
             function refreshTable() {
@@ -238,7 +271,7 @@
                                 badgeStatus(d.status),
                                 formatTanggal(d.created_at),
                                 `<div class="text-center">
-                            <form action="/admin/donasi/${d.id}" method="POST" onsubmit="return confirm('Hapus?')">
+                            <form action="/admin/donasi/${d.id}" method="POST" class="delete-donasi-form">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button type="submit" class="btn btn-ghost-danger btn-sm btn-icon">✕</button>

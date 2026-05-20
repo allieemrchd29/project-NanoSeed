@@ -7,7 +7,7 @@
     <div class="container-xl py-5">
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-6">
-                <form action="{{ route('donation.pay') }}" method="POST" class="card border-0 shadow-sm">                       @csrf
+                <form action="{{ route('donation.pay') }}" method="POST" class="card border-0 shadow-sm"> @csrf
                     <div class="card-status-top bg-success"></div>
                     <div class="card-header py-3">
                         <h3 class="card-title fw-bold text-success">

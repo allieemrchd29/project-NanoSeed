@@ -45,7 +45,8 @@ Route::prefix('admin')->name('admin.')->group(function (){
         Route::prefix('notifications')->name('notifications.')->group(function () {
             Route::get('/',          [NotificationController::class, 'index'])      ->name('index');
             Route::post('/mark-all', [NotificationController::class, 'markAllRead'])->name('mark-all');
-            Route::post('/{id}/read',[NotificationController::class, 'markRead'])   ->name('read');
+            Route::patch('/mark-all', [NotificationController::class, 'markAllRead'])->name('readAll');            
+            Route::patch('/{id}/read',[NotificationController::class, 'markRead'])->name('read');            
             Route::delete('/{id}',   [NotificationController::class, 'destroy'])    ->name('destroy');
         
             // API untuk AJAX polling (dipanggil JavaScript di navbar)

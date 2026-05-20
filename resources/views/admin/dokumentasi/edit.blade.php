@@ -16,17 +16,17 @@
             <div class="card">
                 <div class="card-body">
                     {{-- Form untuk menghapus foto --}}
+                    {{-- Form untuk menghapus foto --}}
                     @foreach ($dokumentasi->fotos as $foto)
-                        <form id="delete-foto-{{ $foto->id }}"
-                            action="{{ route('admin.dokumentasi.foto.destroy', $foto->id) }}" method="POST">
+                        <form id="delete-foto-{{ $foto->_id }}"
+                            action="{{ route('admin.dokumentasi.foto.destroy', $foto->_id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                         </form>
                     @endforeach
-
                     {{-- Form utama edit --}}
                     <form id="form-edit-dokumentasi"
-                        action="{{ route('admin.dokumentasi.update', $dokumentasi->id_dokumentasi) }}" method="POST"
+                        action="{{ route('admin.dokumentasi.update', $dokumentasi->_id) }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -36,13 +36,13 @@
                             <select name="id_kampanye" class="form-select @error('id_kampanye') is-invalid @enderror">
                                 <option value="">-- Pilih Kampanye --</option>
                                 @foreach ($kampanye as $item)
-                                    <option value="{{ $item->id }}"
-                                        {{ old('id_kampanye', $dokumentasi->id_kampanye) == $item->id ? 'selected' : '' }}>
+                                    <option value="{{ $item->_id }}"
+                                        {{ old('id_kampanye', $dokumentasi->id_kampanye) == $item->_id ? 'selected' : '' }}>
                                         {{ $item->nama_kampanye }}
                                     </option>
                                 @endforeach
-                            </select>
-                            @error('id_kampanye')
+                            </select>                            </select>
+                            @error('_id')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -72,17 +72,17 @@
                             <div class="mb-3">
                                 <label class="form-label">Foto Saat Ini</label>
                                 <div class="d-flex flex-wrap gap-2">
-                                    @foreach ($dokumentasi->fotos as $foto)
-                                        <div class="position-relative">
-                                            <img src="{{ asset('storage/' . $foto->foto) }}" class="rounded"
-                                                style="width:100px;height:100px;object-fit:cover;">
-                                            <button type="button"
-                                                class="btn btn-danger btn-sm position-absolute top-0 end-0"
-                                                style="padding:2px 6px;" onclick="confirmDeleteFoto({{ $foto->id }})">
-                                                <i class="ti ti-x"></i>
-                                            </button>
-                                        </div>
-                                    @endforeach
+                               @foreach ($dokumentasi->fotos as $foto)
+                                    <div class="position-relative">
+                                        <img src="{{ asset('storage/' . $foto->foto) }}" class="rounded"
+                                            style="width:100px;height:100px;object-fit:cover;">
+                                        <button type="button"
+                                            class="btn btn-danger btn-sm position-absolute top-0 end-0"
+                                            style="padding:2px 6px;" onclick="confirmDeleteFoto('{{ $foto->_id }}')"> {{-- Gunakan petik dan _id --}}
+                                            <i class="ti ti-x"></i>
+                                        </button>
+                                    </div>
+                                @endforeach
                                 </div>
                             </div>
                         @endif
