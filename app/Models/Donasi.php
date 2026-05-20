@@ -21,6 +21,7 @@ class Donasi extends Model
         'nomor_telepon',
         'order_id',    
         'snap_token',   
-        'status',      
+        'status',
+        'kampanye_id',  // Menambahkan kolom kampanye_id ke fillable
     ];
 }

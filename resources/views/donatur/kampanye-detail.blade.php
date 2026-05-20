@@ -47,8 +47,50 @@
                             </div>
                         </div>
                     </div>
+                    {{-- Stats Donasi --}}
+                    <div class="row g-2 mb-4">
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 text-center" style="background:#f2fdf5;">
+                                <div class="fw-bold text-success fs-4">
+                                    Rp {{ number_format($totalDonasi, 0, ',', '.') }}
+                                </div>
+                                <div class="text-muted small">Total Terkumpul</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 text-center" style="background:#f2fdf5;">
+                                <div class="fw-bold text-success fs-4">{{ $jumlahPohon }}</div>
+                                <div class="text-muted small">Pohon Terdanai</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded-3 text-center" style="background:#f2fdf5;">
+                                <div class="fw-bold text-success fs-4">{{ $jumlahDonatur }}</div>
+                                <div class="text-muted small">Donatur</div>
+                            </div>
+                        </div>
+                    </div>
 
-                    <a href="{{ route('views.donatur.donasi') }}" class="btn btn-success btn-lg w-100 fw-bold mb-3">
+                    {{-- Countdown --}}
+                    @php
+                        $sisaHari = (int) \Carbon\Carbon::now()->diffInDays(
+                            \Carbon\Carbon::parse($kampanye->tanggal_selesai),
+                            false,
+                        );
+                    @endphp
+                    <div class="p-3 rounded-3 mb-4 d-flex align-items-center gap-3"
+                        style="background: #fff8e1; border-left: 4px solid #f59e0b;">
+                        <i class="ti ti-clock text-warning fs-3"></i>
+                        <div>
+                            <div class="fw-bold text-warning">
+                                {{ $sisaHari > 0 ? $sisaHari . ' hari lagi' : 'Kampanye berakhir' }}
+                            </div>
+                            <div class="text-muted small">menuju akhir kampanye</div>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('views.donatur.donasi') }}?kampanye_id={{ $kampanye->id }}"
+                        class="btn btn-success btn-lg w-100 fw-bold mb-3">
                         💚 Donasi Sekarang
                     </a>
                     <a href="{{ route('views.donatur.kampanye') }}" class="btn btn-outline-secondary w-100">
