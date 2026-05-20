@@ -94,14 +94,11 @@
                                                     {{ $data->created_at->translatedFormat('d M Y, H:i') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <form action="{{ route('admin.donasi.destroy', $data->id) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('Hapus permanen data ini?')">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-ghost-danger btn-sm btn-icon">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon"
-                                                                width="24" height="24" viewBox="0 0 24 24"
-                                                                stroke-width="2" stroke="currentColor" fill="none">
+                                                    <form action="{{ route('admin.donasi.destroy', $data->id) }}" method="POST" class="d-inline form-hapus">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="button" class="btn btn-ghost-danger btn-sm btn-icon btn-hapus" title="Hapus Data">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none">
                                                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                                 <path d="M4 7l16 0" />
                                                                 <path d="M10 11l0 6" />
@@ -115,6 +112,36 @@
                                             </tr>
                                         @empty
                                         @endforelse
+                                        @push('scripts')
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Nyari tombol yang ada class .btn-hapus
+                                                const buttons = document.querySelectorAll('.btn-hapus');
+                                                
+                                                buttons.forEach(button => {
+                                                    button.addEventListener('click', function (e) {
+                                                        const form = this.closest('.form-hapus');
+                                                        
+                                                        Swal.fire({
+                                                            title: 'Hapus permanen data ini?',
+                                                            text: "Data donasi yang dihapus tidak bisa dikembalikan!",
+                                                            icon: 'warning',
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: '#d33',
+                                                            cancelButtonColor: '#6c757d',
+                                                            confirmButtonText: 'Ya, Hapus!',
+                                                            cancelButtonText: 'Batal'
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                form.submit(); // Submit form asli kalau admin klik 'Ya'
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                        @endpush
                                     </tbody>
                                 </table>
                             </div>
