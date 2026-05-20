@@ -7,29 +7,20 @@
         <div class="container-xl py-4">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="page-title">Dampak Penanaman Pohon NanoSeed</h2>
+                <h2 class="page-title">Data Dampak</h2>
                 <a href="{{ route('admin.dampak.create') }}" class="btn btn-success">
                     <i class="ti ti-plus me-1"></i> Tambah Data Dampak
                 </a>
             </div>
-            @if (session('success'))
-                <div class="alert alert-success">{{ session('success') }}</div>
-            @endif
 
             <div class="card">
-                <div class="card-body p-0">
-                    <table class="table table-bordered mb-0 align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th style="width: 50px;">NO</th>
-                                <th style="width: 80px;">ICON</th>
-                                <th>JUDUL DAMPAK</th>
-                                <th>DESKRIPSI</th>
-                                <th style="width: 150px;">AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($dampaks as $dampak)
+                <div class="card-header bg-white py-3">
+                    <h3 class="card-title fw-bold text-green">Daftar Dampak NanoSeed</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="tabel-dampak" class="table table-bordered table-hover align-middle w-100">
+                            <thead class="table-light">
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
@@ -71,6 +62,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -90,10 +82,33 @@
             });
         @endif
 
-        function confirmDelete(id, judul) {
+        document.addEventListener('DOMContentLoaded', function() {
+            $('#tabel-dampak').DataTable({
+                language: {
+                    search: "Cari:",
+                    lengthMenu: "_MENU_ entri per halaman",
+                    info: "Menampilkan _START_ - _END_ dari _TOTAL_ data",
+                    infoEmpty: "Tidak ada data",
+                    zeroRecords: "Data tidak ditemukan",
+                    paginate: {
+                        first: "«",
+                        last: "»",
+                        next: "›",
+                        previous: "‹"
+                    }
+                },
+                columnDefs: [{
+                        orderable: false,
+                        targets: [5, 6]
+                    } // kolom gambar & aksi tidak bisa di-sort
+                ]
+            });
+        });
+
+        function confirmDelete(id, nama) {
             Swal.fire({
                 title: 'Hapus Dampak?',
-                text: "Data '" + judul + "' akan dihapus.",
+                text: 'Apakah kamu yakin ingin menghapus dampak "' + nama + '"?',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',

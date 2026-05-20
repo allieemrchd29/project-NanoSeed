@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="navbar-menu-donatur">
             <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->routeIs('donatur.dashboard') ? 'active' : '' }}">
                         <a class="nav-link" href="/">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
                                 <i class="ti ti-home icon"></i>
@@ -44,7 +44,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                <i class="ti ti-heart icon"></i>
+                                <i class="ti ti-seeding icon"></i>
                             </span>
                             <span class="nav-link-title">Donasi</span>
                         </a>

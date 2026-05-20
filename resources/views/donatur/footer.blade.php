@@ -2,7 +2,7 @@
     .nanoseed-footer {
         position: relative;
         color: #f3f4f6;
-        padding: 11px;
+        padding: 8px 0;
         padding-bottom: 0;
         font-family: sans-serif;
         margin-top: auto; 
@@ -24,8 +24,9 @@
     }
 
     .footer-container {
-        max-width: 1200px;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 0;
+        padding: 0 70px;
         display: flex;
         flex-wrap: wrap;
         gap: 30px;
@@ -39,15 +40,15 @@
 
     .footer-section h3 {
         color: #e7ece7; 
-        margin-bottom: 15px;
-        font-size: 1.2rem;
+        margin-bottom: 8px;
+        font-size: 1rem;
     }
 
     .footer-section p {
-        line-height: 1.6;
-        font-size: 0.95rem;
+        line-height: 1.4;
+        font-size: 0.8rem;
         color: #d1d5db;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
     }
 
     .sosmed-links a {
@@ -67,14 +68,17 @@
         text-align: center;
         margin-top: 0;
         padding: 5px;
-        paddinh-bottom: 0;
-        font-size: 1.07rem;
-        color:  #e8ebe8;
+        padding-bottom: 0;
+        font-size: 0.8 rem;
+        color:  #f7efef;
         background-color: transparent;
     }
 </style>
 
 <footer class="nanoseed-footer">
+
+    {{-- Footer utama: supaya cuma tampil di dashboard donatur --}}
+    @if(request()->routeIs('donatur.dashboard'))
     <div class="footer-container">
         <div class="footer-section">
             <h3>Tentang NanoSeed</h3>
@@ -100,8 +104,11 @@
             </div>
         </div>
     </div>
+    @endif
 
+    {{-- Footer bottom: selalu tampil di semua halaman --}}
     <div class="footer-bottom">
         <p>&copy; {{ date('Y') }} NanoSeed. All rights reserved.</p>
     </div>
+
 </footer>

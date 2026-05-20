@@ -114,6 +114,36 @@
                                             </tr>
                                         @empty
                                         @endforelse
+                                        @push('scripts')
+                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Nyari tombol yang ada class .btn-hapus
+                                                const buttons = document.querySelectorAll('.btn-hapus');
+                                                
+                                                buttons.forEach(button => {
+                                                    button.addEventListener('click', function (e) {
+                                                        const form = this.closest('.form-hapus');
+                                                        
+                                                        Swal.fire({
+                                                            title: 'Hapus permanen data ini?',
+                                                            text: "Data donasi yang dihapus tidak bisa dikembalikan!",
+                                                            icon: 'warning',
+                                                            showCancelButton: true,
+                                                            confirmButtonColor: '#d33',
+                                                            cancelButtonColor: '#6c757d',
+                                                            confirmButtonText: 'Ya, Hapus!',
+                                                            cancelButtonText: 'Batal'
+                                                        }).then((result) => {
+                                                            if (result.isConfirmed) {
+                                                                form.submit(); // Submit form asli kalau admin klik 'Ya'
+                                                            }
+                                                        });
+                                                    });
+                                                });
+                                            });
+                                        </script>
+                                        @endpush
                                     </tbody>
                                 </table>
                             </div>
