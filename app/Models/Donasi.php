@@ -24,4 +24,13 @@ class Donasi extends Model
         'status',
         'kampanye_id',  // Menambahkan kolom kampanye_id ke fillable
     ];
+
+    protected $casts = [
+    'jumlah_donasi' => 'integer',
+    ];
+
+    public function kampanye()
+    {
+        return $this->belongsTo(Kampanye::class, 'kampanye_id');
+    }
 }

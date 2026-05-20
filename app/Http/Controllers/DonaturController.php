@@ -62,7 +62,8 @@ class DonaturController extends Controller
     
         $totalDonasi = \App\Models\Donasi::where('kampanye_id', $id)
                         ->where('status', 'success')
-                        ->sum('jumlah_donasi');
+                        ->get()
+                        ->sum(fn($d) => (int) $d->jumlah_donasi);
         
         $jumlahDonatur = \App\Models\Donasi::where('kampanye_id', $id)
                         ->where('status', 'success')

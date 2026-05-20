@@ -17,7 +17,7 @@ class DonationController extends Controller
     // Halaman tabel donasi admin
     public function index()
     {
-        $semuaDonasi = Donasi::latest()->get();
+        $semuaDonasi = Donasi::with('kampanye')->latest()->get();
         return view('admin.donasi', compact('semuaDonasi'));
     }
 
@@ -229,7 +229,7 @@ class DonationController extends Controller
     // Export PDF
     public function exportPdf()
     {
-        $semuaDonasi = Donasi::latest()->get();
+        $semuaDonasi = Donasi::with('kampanye')->latest()->get();
         
         $pdf = Pdf::loadView('admin.donasi-pdf', compact('semuaDonasi'))
                 ->setPaper('a4', 'landscape');

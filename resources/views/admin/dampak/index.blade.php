@@ -15,12 +15,21 @@
 
             <div class="card">
                 <div class="card-header bg-white py-3">
-                    <h3 class="card-title fw-bold text-green">Daftar Dampak NanoSeed</h3>
+                    <h3 class="card-title fw-bold text-success">Daftar Dampak NanoSeed</h3>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="tabel-dampak" class="table table-bordered table-hover align-middle w-100">
-                            <thead class="table-light">
+                    <table id="tabel-dampak" class="table table-bordered table-hover align-middle w-100">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Icon</th>
+                                <th>Judul</th>
+                                <th>Deskripsi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($dampaks as $dampak)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
                                     <td class="text-center">
@@ -36,7 +45,6 @@
                                         <a href="{{ route('admin.dampak.edit', $dampak->_id) }}"
                                             class="btn btn-warning btn-sm">Edit</a>
 
-                                        {{-- 💎 1. PERBAIKAN: Gunakan _id untuk form --}}
                                         <form id="delete-form-{{ $dampak->_id }}"
                                             action="{{ route('admin.dampak.destroy', $dampak->_id) }}" method="POST"
                                             class="d-inline">
@@ -44,7 +52,6 @@
                                             @method('DELETE')
                                         </form>
 
-                                        {{-- 💎 2. PERBAIKAN: Tambahkan tanda petik tunggal ('') pada parameter ID dan gunakan _id --}}
                                         <button type="button" class="btn btn-sm btn-danger"
                                             onclick="confirmDelete('{{ $dampak->_id }}', '{{ addslashes($dampak->judul) }}')">
                                             Hapus
@@ -53,9 +60,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-muted py-4">
-                                        Belum ada data dampak.
-                                    </td>
+                                    <td colspan="5" class="text-center text-muted py-4">Belum ada data dampak.</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -65,9 +70,6 @@
 
         </div>
     </div>
-
-    {{-- CDN SweetAlert2 memastikan library ter-load --}}
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
         @if (session('success'))
@@ -98,10 +100,9 @@
                     }
                 },
                 columnDefs: [{
-                        orderable: false,
-                        targets: [5, 6]
-                    } // kolom gambar & aksi tidak bisa di-sort
-                ]
+                    orderable: false,
+                    targets: [1, 4]
+                }]
             });
         });
 
