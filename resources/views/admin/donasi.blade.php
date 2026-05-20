@@ -59,6 +59,7 @@
                                         <th>Email / No. Telp</th>
                                         <th>Nominal</th>
                                         <th>Jumlah Pohon</th>
+                                        <th>Kampanye</th>
                                         <th>Status</th>
                                         <th>Tanggal</th>
                                         <th class="text-center">Aksi</th>
@@ -80,7 +81,9 @@
                                                 </td>
                                                 <td><span class="badge bg-green-lt text-green">🌱
                                                         {{ $data->jumlah_pohon ?? (int) floor($data->jumlah_donasi / 10000) }}
-                                                        pohon</span></td>
+                                                        pohon</span>
+                                                </td>
+                                                <td>{{ $data->kampanye->nama_kampanye ?? '-' }}</td>
                                                 <td>
                                                     @if ($data->status === 'success')
                                                         <span class="badge bg-success">Berhasil</span>
@@ -115,34 +118,34 @@
                                         @empty
                                         @endforelse
                                         @push('scripts')
-                                        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-                                        <script>
-                                            document.addEventListener('DOMContentLoaded', function () {
-                                                // Nyari tombol yang ada class .btn-hapus
-                                                const buttons = document.querySelectorAll('.btn-hapus');
-                                                
-                                                buttons.forEach(button => {
-                                                    button.addEventListener('click', function (e) {
-                                                        const form = this.closest('.form-hapus');
-                                                        
-                                                        Swal.fire({
-                                                            title: 'Hapus permanen data ini?',
-                                                            text: "Data donasi yang dihapus tidak bisa dikembalikan!",
-                                                            icon: 'warning',
-                                                            showCancelButton: true,
-                                                            confirmButtonColor: '#d33',
-                                                            cancelButtonColor: '#6c757d',
-                                                            confirmButtonText: 'Ya, Hapus!',
-                                                            cancelButtonText: 'Batal'
-                                                        }).then((result) => {
-                                                            if (result.isConfirmed) {
-                                                                form.submit(); // Submit form asli kalau admin klik 'Ya'
-                                                            }
+                                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                            <script>
+                                                document.addEventListener('DOMContentLoaded', function() {
+                                                    // Nyari tombol yang ada class .btn-hapus
+                                                    const buttons = document.querySelectorAll('.btn-hapus');
+
+                                                    buttons.forEach(button => {
+                                                        button.addEventListener('click', function(e) {
+                                                            const form = this.closest('.form-hapus');
+
+                                                            Swal.fire({
+                                                                title: 'Hapus permanen data ini?',
+                                                                text: "Data donasi yang dihapus tidak bisa dikembalikan!",
+                                                                icon: 'warning',
+                                                                showCancelButton: true,
+                                                                confirmButtonColor: '#d33',
+                                                                cancelButtonColor: '#6c757d',
+                                                                confirmButtonText: 'Ya, Hapus!',
+                                                                cancelButtonText: 'Batal'
+                                                            }).then((result) => {
+                                                                if (result.isConfirmed) {
+                                                                    form.submit(); // Submit form asli kalau admin klik 'Ya'
+                                                                }
+                                                            });
                                                         });
                                                     });
                                                 });
-                                            });
-                                        </script>
+                                            </script>
                                         @endpush
                                     </tbody>
                                 </table>
@@ -268,6 +271,7 @@
                                 `<div>${d.email_donatur}</div><div class="text-muted small">${d.nomor_telepon}</div>`,
                                 `<span class="text-green fw-bold">Rp ${parseInt(d.jumlah_donasi).toLocaleString('id-ID')}</span>`,
                                 `<span class="badge bg-green-lt text-green">🌱 ${Math.floor(d.jumlah_donasi / 10000)} pohon</span>`,
+                                `${d.kampanye ? d.kampanye.nama_kampanye : '-'}`,
                                 badgeStatus(d.status),
                                 formatTanggal(d.created_at),
                                 `<div class="text-center">

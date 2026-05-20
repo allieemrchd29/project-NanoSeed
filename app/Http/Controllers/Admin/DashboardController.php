@@ -26,11 +26,14 @@ public function index(Request $request)
 
     
     $donasi = Donasi::where('status', 'success')
-        ->whereBetween('created_at', [$startDate->startOfDay(), $endDate->endOfDay()])
-        ->selectRaw('DATE(created_at) as date, SUM(jumlah_donasi) as total')
-        ->groupBy('date')
-        ->get()
-        ->pluck('total', 'date');
+    ->whereBetween('created_at', [$startDate->startOfDay(), $endDate->endOfDay()])
+    ->get()
+    ->groupBy(function($item) {
+        return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
+    })
+    ->map(function($group) {
+        return $group->sum('jumlah_donasi');
+    });
 
    
     $labels = [];

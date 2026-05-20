@@ -58,7 +58,7 @@
                                             </a>
                                         </li>
 
-                                        <li
+                                        {{-- <li
                                             class="nav-item {{ request()->routeIs('donatur.donasi') || request()->is('donatur/donasi*') ? 'active' : '' }}">
                                             <a class="nav-link" href="{{ route('views.donatur.donasi') }}">
                                                 <span class="nav-link-icon d-md-none d-lg-inline-block">
@@ -66,7 +66,7 @@
                                                 </span>
                                                 <span class="nav-link-title">Donasi</span>
                                             </a>
-                                        </li>
+                                        </li> --}}
                                         <li
                                             class="nav-item {{ request()->routeIs('donatur.dampak') || request()->is('donatur/dampak*') ? 'active' : '' }}">
                                             <a class="nav-link" href="#dampak" id="nav-dampak">

@@ -411,7 +411,7 @@
                         @forelse($dokumentasiDashboard as $item)
                             @foreach ($item->fotos->take(1) as $foto)
                                 <div class="col-md-4">
-                                    <a href="{{ route('views.donatur.dokumentasi.detail', $item->id_dokumentasi) }}">
+                                    <a href="{{ route('views.donatur.dokumentasi.detail', $item->_id) }}">
                                         <div class="img-responsive img-responsive-1by1 rounded-3 shadow-sm"
                                             style="background-image: url({{ asset('storage/' . $foto->foto) }})">
                                         </div>

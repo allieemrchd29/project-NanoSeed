@@ -24,6 +24,7 @@
             <div class="row g-4">
                 @forelse($dokumentasi as $item)
                     <div class="col-md-6 col-lg-4">
+                        <div class="card rounded-3 overflow-hidden shadow-sm h-100">
                             <a href="{{ route('views.donatur.dokumentasi.detail', $item) }}" class="text-decoration-none">
                                 {{-- Foto thumbnail --}}
                                 @if ($item->fotos->count() > 0)
@@ -53,8 +54,8 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
                 @empty
                     <div class="col-12">
