@@ -64,22 +64,6 @@
     </div>
 </div>
 
-@push('scripts')
-<script>
-    document.querySelectorAll('.icon-radio').forEach(radio => {
-        radio.addEventListener('change', function () {
-            document.querySelectorAll('.icon-option').forEach(label => {
-                label.classList.remove('border-success', 'bg-success', 'text-white');
-                label.classList.add('border-light', 'bg-light', 'text-muted');
-            });
-            const selectedLabel = document.querySelector(`label[for="${this.id}"]`);
-            selectedLabel.classList.add('border-success', 'bg-success', 'text-white');
-            selectedLabel.classList.remove('border-light', 'bg-light', 'text-muted');
-        });
-    });
-</script>
-@endpush
-
                 <div class="mb-3">
                     <label class="form-label fw-semibold">Deskripsi</label>
                     <textarea name="deskripsi" rows="5"
@@ -97,4 +81,52 @@
         </div>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[action*="dampak.update"]');
+    const iconRadios = document.querySelectorAll('.icon-radio');
+    const iconOptions = document.querySelectorAll('.icon-option');
+
+    // Setup icon selection UI
+    iconRadios.forEach(radio => {
+        radio.addEventListener('change', function () {
+            iconOptions.forEach(label => {
+                label.classList.remove('border-success', 'bg-success', 'text-white');
+                label.classList.add('border-light', 'bg-light', 'text-muted');
+            });
+            const selectedLabel = document.querySelector(`label[for="${this.id}"]`);
+            if (selectedLabel) {
+                selectedLabel.classList.add('border-success', 'bg-success', 'text-white');
+                selectedLabel.classList.remove('border-light', 'bg-light', 'text-muted');
+            }
+        });
+    });
+
+    // Form validation
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const judul = document.querySelector('input[name="judul"]').value.trim();
+            const deskripsi = document.querySelector('textarea[name="deskripsi"]').value.trim();
+            const iconSelected = document.querySelector('input[name="icon"]:checked');
+
+            if (!judul) {
+                alert('Judul dampak harus diisi!');
+                e.preventDefault();
+                return false;
+            }
+            if (!iconSelected) {
+                alert('Pilih icon dampak terlebih dahulu!');
+                e.preventDefault();
+                return false;
+            }
+            if (!deskripsi) {
+                alert('Deskripsi dampak harus diisi!');
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+});
+</script>
 @endsection
